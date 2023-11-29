@@ -2,13 +2,7 @@ package com.example.GraphModel.UML_Model;
 
 import java.util.HashMap;
 
-public class UniqPacketByNameAndType<V extends Typeable> {
-    private HashMap<String,V> myHashMap;
-
-    public UniqPacketByNameAndType(){
-        this.myHashMap = new HashMap<String,V>();
-    }
-
+public class UniqPacketByNameAndType<V extends Typeable>  extends UniqPacketByKey<V>{
     /**
      * 
      * @param value
@@ -18,10 +12,7 @@ public class UniqPacketByNameAndType<V extends Typeable> {
         String name = value.getName();
         String type = value.getType();
         String key = name+type;
-        if(this.myHashMap.containsKey(key)){
-            throw new AlreadyExistingStringException(key);
-        }
-        this.myHashMap.put(key,value);
+        super.addValueByKey(value, key);
     }
 
     /**
@@ -30,11 +21,7 @@ public class UniqPacketByNameAndType<V extends Typeable> {
      * @return Value matching Name, null if none is matching
      */
     public V getValue(String name, String type){
-        String key = name+type;
-        if(!this.myHashMap.containsKey(key)){
-            return null;
-        }
-        return this.myHashMap.get(key);
+       return super.getValue(name+type);
     }
 
     /**
@@ -42,17 +29,7 @@ public class UniqPacketByNameAndType<V extends Typeable> {
      * @param name
      */
     public void deleteValueByNameAndType(String name, String type){
-        this.myHashMap.put(name+type, null);
+        super.deleteValueBykey(name+type);
     }
 
-    public String toStringWithSeparator(String separator, boolean keepLastSeparator){
-        String str = "";
-        for(String key : this.myHashMap.keySet()){
-            str += this.myHashMap.get(key)+separator;
-        }
-        if(!keepLastSeparator){
-            str = str.substring(0, str.length()-separator.length());
-        }
-        return str;
-    }
 }

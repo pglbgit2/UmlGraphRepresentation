@@ -1,6 +1,6 @@
 package com.example.GraphModel.UML_Model;
 
-public class Method extends Typeable{
+public class Method extends Typeable implements HaveArguments{
 
    Arguments arguments;
 
@@ -69,6 +69,11 @@ public class Method extends Typeable{
     @Override
     public String toString(){
         return super.toString()+" "+this.getName()+this.arguments.toString()+"{\n\n\t}";
+    }
+
+    @Override
+    public Arguments getArguments() {
+        return this.arguments;
     }
     
 }

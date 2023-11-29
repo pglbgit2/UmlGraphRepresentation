@@ -4,12 +4,7 @@ import java.util.HashMap;
 /**
  * @description hashtable identify by name (String)
  */
-public class UniqPacketByName<V extends Nameable> {
-    private HashMap<String,V> myHashMap;
-
-    public UniqPacketByName(){
-        this.myHashMap = new HashMap<String,V>();
-    }
+public class UniqPacketByName<V extends Nameable> extends UniqPacketByKey<V> {
 
     /**
      * 
@@ -18,10 +13,7 @@ public class UniqPacketByName<V extends Nameable> {
      */
     public void addValueByName(V value) throws AlreadyExistingStringException{
         String name = value.getName();
-        if(this.myHashMap.containsKey(name)){
-            throw new AlreadyExistingStringException(name);
-        }
-        this.myHashMap.put(name,value);
+        super.addValueByKey(value, name);
     }
 
     /**
@@ -30,10 +22,7 @@ public class UniqPacketByName<V extends Nameable> {
      * @return Value matching Name, null if none is matching
      */
     public V getValue(String name){
-        if(!this.myHashMap.containsKey(name)){
-            return null;
-        }
-        return this.myHashMap.get(name);
+        return super.getValue(name);
     }
 
     /**
@@ -41,17 +30,7 @@ public class UniqPacketByName<V extends Nameable> {
      * @param name
      */
     public void deleteValueByName(String name){
-        this.myHashMap.put(name, null);
+        super.deleteValueBykey(name);
     }
 
-    public String toStringWithSeparator(String separator, boolean keepLastSeparator){
-        String str = "";
-        for(String key : this.myHashMap.keySet()){
-            str += this.myHashMap.get(key)+separator;
-        }
-        if(str != "" && !keepLastSeparator){
-            str = str.substring(0, str.length()-separator.length());
-        }
-        return str;
-    }
 }
