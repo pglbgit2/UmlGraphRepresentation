@@ -1,6 +1,8 @@
 package com.example.GraphModel.UML_Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class UniqPacketByKey<V> {
     private HashMap<String,V> myHashMap;
@@ -39,6 +41,18 @@ public class UniqPacketByKey<V> {
      */
     public void deleteValueBykey(String key){
         this.myHashMap.put(key, null);
+    }
+
+    public Set<String> getKeysSet(){
+        return this.myHashMap.keySet();
+    }
+
+    public String[] getValues(){
+        ArrayList<String> theValues = new ArrayList<String>();
+        for(String key : this.myHashMap.keySet()){
+            theValues.add(this.myHashMap.get(key).toString());
+        }
+        return (String[]) theValues.toArray();
     }
 
     public String toStringWithSeparator(String separator, boolean keepLastSeparator){

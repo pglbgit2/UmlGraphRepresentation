@@ -68,7 +68,7 @@ public class Method extends Typeable implements HaveArguments{
 
     @Override
     public String toString(){
-        return super.toString()+" "+this.getName()+this.arguments.toString()+"{\n\n\t}";
+        return super.toString()+" "+this.getName()+"("+this.arguments.toString()+"){\n\n\t}";
     }
 
     @Override

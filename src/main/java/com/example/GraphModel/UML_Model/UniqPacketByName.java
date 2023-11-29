@@ -1,6 +1,5 @@
 package com.example.GraphModel.UML_Model;
 
-import java.util.HashMap;
 /**
  * @description hashtable identify by name (String)
  */

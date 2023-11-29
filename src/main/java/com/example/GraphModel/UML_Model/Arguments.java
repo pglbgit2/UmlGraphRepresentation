@@ -12,30 +12,40 @@ public class Arguments {
     public Arguments(String[] attributeStringTab) throws NoValidVisibilityException, AlreadyExistingStringException{
         this.argumentList = new UniqPacketByName<Attribute>();
         for(String attString : attributeStringTab){
-            String[] att = attString.split(" ");
-            Attribute newAtt;
-            int n = att.length;
-            if(n > 2){
-                if(!hasVisibility(att[0])){
-                    throw new NoValidVisibilityException(attString);
-                }
-                newAtt = new Attribute(att[n-1], att[n-2], att[0]);
+            Attribute newAtt = Attribute.getAttributeFromString(attString);
+            if(newAtt != null){
+                this.argumentList.addValueByName(newAtt);
             }
-            else{
-                newAtt = new Attribute(att[1], att[0]);
-            }
-            this.argumentList.addValueByName(newAtt);
         }
     }
 
-    private boolean hasVisibility(String firstWordOfAttribute){
-        return (firstWordOfAttribute.compareToIgnoreCase("private") == 0 || firstWordOfAttribute.compareToIgnoreCase("public") == 0 || firstWordOfAttribute.compareToIgnoreCase("protected") == 0 || firstWordOfAttribute.compareTo("+") == 0 || firstWordOfAttribute.compareTo("-") == 0 || firstWordOfAttribute.compareToIgnoreCase("p") == 0);
+    public void addAttributeByType(Attribute a) throws AlreadyExistingStringException{
+        this.argumentList.addValueByKey(a, a.getName());
+    }
+
+    // attString must respect Attribute conventions
+    public void addAttributeByString(String attString) throws NoValidVisibilityException, AlreadyExistingStringException{
+        Attribute toAdd = Attribute.getAttributeFromString(attString);
+        this.argumentList.addValueByKey(toAdd, toAdd.name);
+    }
+
+    public void deleteAttribute(String name){
+        this.argumentList.deleteValueBykey(name);
+    }    
+
+    public String[] getArgs(){
+        return this.argumentList.getValues();
+    }
+
+    public String toStringWithSeparator(String separator, boolean keepLastSeparator){
+        String str = "";
+        str+=this.argumentList.toStringWithSeparator(separator, keepLastSeparator);
+        return str;
     }
 
     public String toString(){
-        String str ="(";
+        String str = "";
         str+=this.argumentList.toStringWithSeparator(", ", false);
-        str+=")";
         return str;
     }
 }

@@ -15,4 +15,7 @@ public class UniqPacketByNameAndArguments<V extends HaveArguments & Nameable> ex
         super.deleteValueBykey(name+args.toString());
     }
 
+    public String toString(){
+        return super.toStringWithSeparator("\n", false);
+    }
 }
