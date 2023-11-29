@@ -3,17 +3,41 @@ package com.example.GraphModel.UML_Model;
 public class Method extends Typeable{
 
    Arguments arguments;
-    
+
+/**
+ * @information: Do not use this method, use getMethodFromDefinition
+ * @param Visibility
+ * @param type
+ * @param name
+ * @param args
+ * @throws NoValidVisibilityException
+ * @throws AlreadyExistingStringException
+ */
    public Method(String Visibility, String type, String name, String[] args) throws NoValidVisibilityException, AlreadyExistingStringException{
         super(name, type, Visibility);
         this.arguments = new Arguments(args);
    }
 
+   /**
+    * @information Do not use this method, use getMethodFromDefinition 
+    * @param type
+    * @param name
+    * @param args
+    * @throws NoValidVisibilityException
+    * @throws AlreadyExistingStringException
+    */
    public Method(String type, String name, String[] args) throws NoValidVisibilityException, AlreadyExistingStringException{
         this(null,type, name, args);
    }
 
    // definition: ReturnType MethodName(Arguments) / public ReturnType MethodName(Arguments) / public static ReturnType MethodName(Arguments)
+   /**
+    * 
+    * @param definition
+    * @return
+    * @throws NoValidVisibilityException
+    * @throws AlreadyExistingStringException
+    */
    public static Method getMethodFromDefinition(String definition) throws NoValidVisibilityException, AlreadyExistingStringException{
         String def = definition;
         if(def.contains(" throws ")){
