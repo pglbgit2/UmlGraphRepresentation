@@ -8,11 +8,24 @@ import org.junit.Assert;
 
 public class ArgumentTest {
     @Test
-    public void argumentTest(){
+    public void multiArgumentTest(){
         try{
             String[] arguments = new String[] {"P int nb", "+ String name", "- ArrayList<Integer> scoreList"};
             Arguments args1 = new Arguments(arguments);
-            assertEquals("(protected int nb, public String name, private ArrayList<Integer> scoreList)", args1.toString());
+            assertEquals("(public String name, protected int nb, private ArrayList<Integer> scoreList)", args1.toString());
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void zeroArgumentTest(){
+        try{
+            String[] arguments = new String[]{};
+            Arguments args1 = new Arguments(arguments);
+            assertEquals("()", args1.toString());
         }
         catch(Exception e){
             Assert.fail();

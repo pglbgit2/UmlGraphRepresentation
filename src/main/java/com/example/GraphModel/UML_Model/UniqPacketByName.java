@@ -1,11 +1,13 @@
 package com.example.GraphModel.UML_Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 /**
  * @description hashtable identify by name (String)
  */
 public class UniqPacketByName<V extends Nameable> {
     private HashMap<String,V> myHashMap;
+    private ArrayList<String> myKeys;
 
     public UniqPacketByName(){
         this.myHashMap = new HashMap<String,V>();

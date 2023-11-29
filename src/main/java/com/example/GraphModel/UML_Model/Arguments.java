@@ -1,16 +1,16 @@
 package com.example.GraphModel.UML_Model;
 
-import java.util.ArrayList;
 
 public class Arguments {
-    private ArrayList<Attribute> argumentList;
+    private UniqPacketByNameAndType<Attribute> argumentList;
     /**
      * @example ["public int number", "String name", "public transient static int somme"]
      * @requirements Visibility must be first, name last and type penultimate, and if theres more than name and type visibility must be include
      * @param attributeStringTab
+     * @throws AlreadyExistingStringException
      */
-    public Arguments(String[] attributeStringTab) throws NoValidVisibilityException{
-        this.argumentList = new ArrayList<Attribute>();
+    public Arguments(String[] attributeStringTab) throws NoValidVisibilityException, AlreadyExistingStringException{
+        this.argumentList = new UniqPacketByNameAndType<Attribute>();
         for(String attString : attributeStringTab){
             String[] att = attString.split(" ");
             Attribute newAtt;
@@ -24,7 +24,7 @@ public class Arguments {
             else{
                 newAtt = new Attribute(att[1], att[0]);
             }
-            this.argumentList.add(newAtt);
+            this.argumentList.addValueByNameAndtype(newAtt);
         }
     }
 
@@ -34,10 +34,7 @@ public class Arguments {
 
     public String toString(){
         String str ="(";
-        str += this.argumentList.get(0).toString();
-        for(int i = 1; i < this.argumentList.size(); i++){
-           str += ", "+this.argumentList.get(i).toString();
-        }
+        str+=this.argumentList.toStringWithSeparator(", ", false);
         str+=")";
         return str;
     }
