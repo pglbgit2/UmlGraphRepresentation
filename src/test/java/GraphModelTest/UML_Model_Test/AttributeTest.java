@@ -18,5 +18,6 @@ public class AttributeTest {
         catch(NoValidVisibilityException nVVE){
             Assert.fail();
         }
-    }   
+    }
+   
 }

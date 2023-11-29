@@ -12,7 +12,7 @@ public class ArgumentTest {
         try{
             String[] arguments = new String[] {"P int nb", "+ String name", "- ArrayList<Integer> scoreList"};
             Arguments args1 = new Arguments(arguments);
-            assertEquals("(public String name, protected int nb, private ArrayList<Integer> scoreList)", args1.toString());
+            assertEquals("(private ArrayList<Integer> scoreList, protected int nb, public String name)", args1.toString());
         }
         catch(Exception e){
             e.printStackTrace();
@@ -28,6 +28,7 @@ public class ArgumentTest {
             assertEquals("()", args1.toString());
         }
         catch(Exception e){
+            e.printStackTrace();
             Assert.fail();
         }
     }

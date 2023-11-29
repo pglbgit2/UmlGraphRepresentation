@@ -2,7 +2,7 @@ package com.example.GraphModel.UML_Model;
 
 
 public class Arguments {
-    private UniqPacketByNameAndType<Attribute> argumentList;
+    private UniqPacketByName<Attribute> argumentList;
     /**
      * @example ["public int number", "String name", "public transient static int somme"]
      * @requirements Visibility must be first, name last and type penultimate, and if theres more than name and type visibility must be include
@@ -10,7 +10,7 @@ public class Arguments {
      * @throws AlreadyExistingStringException
      */
     public Arguments(String[] attributeStringTab) throws NoValidVisibilityException, AlreadyExistingStringException{
-        this.argumentList = new UniqPacketByNameAndType<Attribute>();
+        this.argumentList = new UniqPacketByName<Attribute>();
         for(String attString : attributeStringTab){
             String[] att = attString.split(" ");
             Attribute newAtt;
@@ -24,7 +24,7 @@ public class Arguments {
             else{
                 newAtt = new Attribute(att[1], att[0]);
             }
-            this.argumentList.addValueByNameAndtype(newAtt);
+            this.argumentList.addValueByName(newAtt);
         }
     }
 

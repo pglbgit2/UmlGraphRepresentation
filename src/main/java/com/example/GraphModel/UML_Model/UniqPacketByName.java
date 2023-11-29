@@ -43,4 +43,15 @@ public class UniqPacketByName<V extends Nameable> {
     public void deleteValueByName(String name){
         this.myHashMap.put(name, null);
     }
+
+    public String toStringWithSeparator(String separator, boolean keepLastSeparator){
+        String str = "";
+        for(String key : this.myHashMap.keySet()){
+            str += this.myHashMap.get(key)+separator;
+        }
+        if(str != "" && !keepLastSeparator){
+            str = str.substring(0, str.length()-separator.length());
+        }
+        return str;
+    }
 }
