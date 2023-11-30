@@ -43,6 +43,7 @@ public class Method extends Typeable implements HaveArguments{
         if(def.contains(" throws ")){
             def = def.split(" throws ")[0];
         }
+        System.out.println(def);
         String[] elements = def.substring(0, def.indexOf("(")).split(" ");
         String args = def.substring(def.indexOf("(") + 1, def.indexOf(")"));
         if(elements.length == 2){

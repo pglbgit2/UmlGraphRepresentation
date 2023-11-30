@@ -51,7 +51,7 @@ public class ClassFileRetriever {
         boolean hasPassedClassDefinition = false;
         int nbOfHookOpened = 0;
 
-        while(newLine != null){
+        while(newLine != null){ 
             newLine = removeTroublesomeSpaces(newLine);
                 if(!newLine.startsWith("*") && !newLine.startsWith("import") &&!newLine.startsWith("package") &&!newLine.startsWith("//") &&!newLine.startsWith("*")&&!newLine.startsWith("/*")){
                     if(newLine.contains(" ")){
@@ -70,13 +70,14 @@ public class ClassFileRetriever {
 
                         if(hasPassedClassDefinition && !hasPassedConstructor && newLine.endsWith(";") && nbOfHookOpened == 1){
                             //isAttribute
-                            newClasse.addAttribute(newLine.substring(newLine.indexOf(";")));
+                            newClasse.addAttribute(newLine.substring(0, newLine.indexOf(";")));
                             //System.out.println("Attribute:"+newLine);
                         }  
 
-                        if(hasPassedClassDefinition && nbOfHookOpened == 1 && !newLine.endsWith(";")){
+                        if(hasPassedClassDefinition && nbOfHookOpened == 1 && !newLine.endsWith(";") && newLine.contains("\\)")){
                             //isMethod
-                            newClasse.addMethod(newLine.substring(newLine.indexOf("\\)")));
+                            System.out.println(newLine);
+                            newClasse.addMethod(newLine.substring(0, newLine.indexOf("\\)")));
                         }
                     }
 

@@ -13,7 +13,7 @@ public class PackageTest {
     @Test
     public void testPackage(){
         PackageClass p1 = new PackageClass("UML_MODEL");
-        assertEquals("UML_MODEL", p1.toString());
+        assertEquals("UML_MODEL\n********\n", p1.toString());
     }
 
     @Test
