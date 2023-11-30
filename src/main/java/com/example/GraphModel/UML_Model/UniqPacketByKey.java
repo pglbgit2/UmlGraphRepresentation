@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class UniqPacketByKey<V> {
-    private HashMap<String,V> myHashMap;
+    protected HashMap<String,V> myHashMap;
 
     public UniqPacketByKey(){
         this.myHashMap = new HashMap<String,V>();

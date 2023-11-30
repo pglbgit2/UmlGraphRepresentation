@@ -2,6 +2,7 @@ package com.example.GraphModel.GraphFileManager;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -15,7 +16,11 @@ public class ClassWriter {
         this.myClasse = someClasse;
     }
 
-    
+    public void writeFileWithFile(File theFile) throws FileNotFoundException{
+        PrintWriter someWriter = new PrintWriter(theFile);
+        someWriter.print(this.myClasse.toString());
+        someWriter.close();
+    }
     /**
      * 
      * @param filedirpath
@@ -25,8 +30,6 @@ public class ClassWriter {
         String filepath = filedirpath+this.myClasse.getName()+".java";
         File theFile = new File(filepath);
         theFile.createNewFile(); // if file already exists will do nothing 
-        PrintWriter someWriter = new PrintWriter(theFile);
-        someWriter.println(this.myClasse.toString());
-        someWriter.close();
+        writeFileWithFile(theFile);
     }
 }
