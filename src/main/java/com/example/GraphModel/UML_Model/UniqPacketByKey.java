@@ -46,6 +46,15 @@ public class UniqPacketByKey<V> {
     public Set<String> getKeysSet(){
         return this.myHashMap.keySet();
     }
+    
+    @SuppressWarnings("unchecked")
+    public V[] getPackets(){
+        ArrayList<V> theValues = new ArrayList<V>();
+        for(String key : this.myHashMap.keySet()){
+            theValues.add(this.myHashMap.get(key));
+        }
+        return (V[]) theValues.toArray();
+    }
 
     public String[] getValues(){
         ArrayList<String> theValues = new ArrayList<String>();

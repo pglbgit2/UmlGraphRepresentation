@@ -45,7 +45,7 @@ public class MethodTest {
         public void testMultiFail(){
             try {
                 Method m3 = Method.getMethodFromDefinition("public String subString(int index1, int index1)");
-               
+                System.out.println(m3.toString());
             } catch (NoValidVisibilityException e) {
                 Assert.fail();             
             } catch(AlreadyExistingStringException e){

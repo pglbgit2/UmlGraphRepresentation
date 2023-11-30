@@ -19,5 +19,16 @@ public class AttributeTest {
             Assert.fail();
         }
     }
+
+    @Test
+    public void attributeFromStringTest(){
+        try{
+            Attribute attribute2 = Attribute.getAttributeFromString("protected Attribute attribute2");
+            assertEquals(attribute2.toString(),"protected Attribute attribute2");
+        }
+        catch(NoValidVisibilityException nVVE){
+            Assert.fail();
+        }
+    }
    
 }
