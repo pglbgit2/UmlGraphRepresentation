@@ -1,4 +1,5 @@
 package com.example.GraphModel.UML_Model;
+//TODO: treat the extends
 
 public class Classes implements Nameable {
     private Arguments myAttributes;
@@ -26,6 +27,12 @@ public class Classes implements Nameable {
     public void addMethod(String definition) throws NoValidVisibilityException, AlreadyExistingStringException{
         Method toAdd = Method.getMethodFromDefinition(definition);
         this.myMethods.addValue(toAdd);
+    }
+
+
+    public void addConstructor(String[] args) throws NoValidVisibilityException, AlreadyExistingStringException{
+        Method constructor = new Method("public",null, this.name, args);
+        this.myMethods.addValue(constructor);
     }
 
     public void removeAttribute(String name){

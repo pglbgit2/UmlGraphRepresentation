@@ -67,7 +67,7 @@ public class ClassFileRetriever {
                                     throw new NotGoodFormatException(filename, supposedClassName);
                                 }
                                 newClasse = new Classes(filename, new String[]{});
-                                System.out.println("class def:"+newLine);
+                                //System.out.println("class def:"+newLine);
                                 hasPassedClassDefinition = true;
                             }
                         }
@@ -75,15 +75,18 @@ public class ClassFileRetriever {
                         if(hasPassedClassDefinition && newLine.endsWith(";") && nbOfHookOpened == 1){
                             //isAttribute
                             newClasse.addAttribute(newLine.substring(0, newLine.indexOf(";")));
-                            System.out.println("Attribute:"+newLine);
+                            //System.out.println("Attribute:"+newLine);
                         }  
 
                         if(hasPassedClassDefinition && nbOfHookOpened == 1 && !newLine.endsWith(";")){
                             //isMethod
-                            System.out.println("Method:"+newLine);
+                            //System.out.println("Method:"+newLine);
                             
                             if(isConstructor(newLine, newClasse.getName())){
-
+                                //System.out.println("Constructor:"+newLine);
+                                String argString = newLine.substring(newLine.indexOf("(") + 1, newLine.indexOf(")"));
+                                String[] args = argString.split(", ");
+                                newClasse.addConstructor(args);
                             }
                             else{
                                 newClasse.addMethod(newLine.substring(0, newLine.indexOf(")")+1));
