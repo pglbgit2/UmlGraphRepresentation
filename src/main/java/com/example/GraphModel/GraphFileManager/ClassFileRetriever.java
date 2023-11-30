@@ -47,7 +47,6 @@ public class ClassFileRetriever {
         Classes newClasse = null;
         BufferedReader theFile = new BufferedReader(new InputStreamReader (new FileInputStream (filepath)));
         String newLine = theFile.readLine();
-        boolean hasPassedConstructor = false;
         boolean hasPassedClassDefinition = false;
         int nbOfHookOpened = 0;
 
@@ -59,25 +58,36 @@ public class ClassFileRetriever {
                             String[] parsedLine = newLine.split(" ");
                             if(!hasPassedClassDefinition && parsedLine.length >= 3){
                                 //isClassDefinition
-                                if(parsedLine[2].compareTo(filename) != 0){
+                                String supposedClassName = parsedLine[2];
+                                if(supposedClassName.contains("<")){
+                                    supposedClassName = supposedClassName.split("<")[0];
+                                }
+                                if(supposedClassName.compareTo(filename) != 0){
                                     theFile.close();
-                                    throw new NotGoodFormatException(filename, parsedLine[2]);
+                                    throw new NotGoodFormatException(filename, supposedClassName);
                                 }
                                 newClasse = new Classes(filename, new String[]{});
+                                System.out.println("class def:"+newLine);
                                 hasPassedClassDefinition = true;
                             }
                         }
-
-                        if(hasPassedClassDefinition && !hasPassedConstructor && newLine.endsWith(";") && nbOfHookOpened == 1){
+                        
+                        if(hasPassedClassDefinition && newLine.endsWith(";") && nbOfHookOpened == 1){
                             //isAttribute
                             newClasse.addAttribute(newLine.substring(0, newLine.indexOf(";")));
-                            //System.out.println("Attribute:"+newLine);
+                            System.out.println("Attribute:"+newLine);
                         }  
 
-                        if(hasPassedClassDefinition && nbOfHookOpened == 1 && !newLine.endsWith(";") && newLine.contains("\\)")){
+                        if(hasPassedClassDefinition && nbOfHookOpened == 1 && !newLine.endsWith(";")){
                             //isMethod
-                            System.out.println(newLine);
-                            newClasse.addMethod(newLine.substring(0, newLine.indexOf("\\)")));
+                            System.out.println("Method:"+newLine);
+                            
+                            if(isConstructor(newLine, newClasse.getName())){
+
+                            }
+                            else{
+                                newClasse.addMethod(newLine.substring(0, newLine.indexOf(")")+1));
+                            }
                         }
                     }
 
@@ -94,6 +104,13 @@ public class ClassFileRetriever {
         
         theFile.close();
         return newClasse;
+    }
+
+
+
+
+    private boolean isConstructor(String newLine, String name) {
+        return newLine.startsWith("public "+name+"(");
     }
 
  

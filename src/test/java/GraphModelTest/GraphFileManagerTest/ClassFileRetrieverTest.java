@@ -16,11 +16,11 @@ public class ClassFileRetrieverTest {
     public void fileRetrieveTest(){
         ClassFileRetriever cfr = new ClassFileRetriever();
         try {
-            Classes class1 = cfr.retrieveClass("./src/main/java/com/example/GraphModel/UML_Model/Attribute.java");
+            Classes class1 = cfr.retrieveClass("./src/main/java/com/example/GraphModel/UML_Model/UniqPacketByKey.java");
             System.out.println(class1.toString());
         } catch (IOException | NotGoodFormatException | NoValidVisibilityException | AlreadyExistingStringException e) {
-            Assert.fail();
             e.printStackTrace();
+            Assert.fail();
         }   
     }
 }
