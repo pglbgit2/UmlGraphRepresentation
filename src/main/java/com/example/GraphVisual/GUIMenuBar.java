@@ -12,7 +12,7 @@ public class GUIMenuBar extends JMenuBar{
     public GUIMenuBar(){
         file = new JMenu("File");
         loadPackage = new JMenuItem("Load Package");
-        writePackage = new JMenuItem("Write Package");
+        writePackage = new JMenuItem("Write Graph");
         file.add(loadPackage);
         file.add(writePackage);
         this.add(file);

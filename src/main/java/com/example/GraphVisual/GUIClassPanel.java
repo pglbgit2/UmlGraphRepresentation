@@ -6,26 +6,24 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class GUIClassPanel extends JPanel{
+import com.example.GraphModel.UML_Model.Nameable;
+
+public class GUIClassPanel extends JPanel implements Nameable{
     JPopupMenu rightClickClassMenu;
     JPanel myClassPanel;
-    JTextField className;
-    
     JPanel upPanel;
     GUIClassElementsPanel attributesPanel;
     GUIClassElementsPanel constructorPanel;
     GUIClassElementsPanel methodsPanel;
+    JLabel className;
 
-    public GUIClassPanel(){
+    public GUIClassPanel(String _name){
         super(new GridLayout(4,1));
-        this.upPanel = new JPanel(new GridLayout(1,2));
-        this.className = new JTextField(20);
-        JLabel classNameFillInformation = new JLabel("class name:");
-        this.upPanel.add(classNameFillInformation);
-        this.upPanel.add(this.className);
+        this.upPanel = new JPanel();
+        className = new JLabel(_name);
+        this.upPanel.add(className);
         this.add(this.upPanel);
 
         ArrayList<String> attributesNames = new ArrayList<String>();
@@ -47,6 +45,15 @@ public class GUIClassPanel extends JPanel{
         this.setBorder(new EmptyBorder(20, 20, 20, 20));
         this.setBackground(Color.LIGHT_GRAY); 
         
+    }
+
+
+    public String getName(){
+        return this.className.getText();
+    }
+
+    public void setName(String _name){
+        this.className.setText(_name);
     }
     
 }
