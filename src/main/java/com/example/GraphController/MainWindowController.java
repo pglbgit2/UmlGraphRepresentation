@@ -27,13 +27,17 @@ public class MainWindowController implements ActionListener {
         someItem.addActionListener(this);
     }
 
+    public static String askForNameWithPopup(JFrame theFrame){
+        GUIPopupGetName newPopup = new GUIPopupGetName("Package Name", theFrame);
+        PopupController newController = new PopupController(newPopup);
+        newPopup.setVisible(true);
+        return newController.getValue();
+    }
+
     @Override
     public void actionPerformed(ActionEvent arg0) {
         if(arg0.getActionCommand().compareTo("addPackage") == 0){
-            GUIPopupGetName newPopup = new GUIPopupGetName("Package Name", this.myView.getFrame());
-            PopupController newController = new PopupController(newPopup);
-            newPopup.setVisible(true);
-            String value = newController.getValue();
+            String value = askForNameWithPopup(this.myView.getFrame());
             System.out.println(value); 
        }
     }
