@@ -12,12 +12,11 @@ import com.example.GraphVisual.UtilsFromStackOverFlow.DraggableHelper;
 public class GUIPackagePanel extends JPanel implements Nameable {
     JPopupMenu rightClickPackageMenu;
     JLabel name;
-    UniqPacketByName<GUIClassPanel> myClasses; 
+    UniqPacketByName<GUIClassPanel> myClasses;
     
     public GUIPackagePanel(String _name){
         this.name = new JLabel(_name);
         this.myClasses = new UniqPacketByName<GUIClassPanel>();
-
         this.add(name);
         DraggableHelper beGrabbable = new DraggableHelper(this);
     }

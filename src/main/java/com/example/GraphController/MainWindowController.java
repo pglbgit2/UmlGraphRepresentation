@@ -22,13 +22,13 @@ public class MainWindowController implements ActionListener {
     public MainWindowController(UmlGraph someModel, GUIMainWindow someView){
         this.myModel = someModel;
         this.myView = someView;
-        linkWithMenuComponent(this.myView.getMainPopup().getAddPackage(), "addPackage");
-        linkWithMenuComponent(this.myView.getMainPopup().getRemovePackage(), "removePackage");
+        linkWithMenuComponent(this.myView.getMainPopup().getAddPackage(), "addPackage",this);
+        linkWithMenuComponent(this.myView.getMainPopup().getRemovePackage(), "removePackage",this);
     }
 
-    public void linkWithMenuComponent(JMenuItem someItem, String actionCommand){
+    public static void linkWithMenuComponent(JMenuItem someItem, String actionCommand, ActionListener someActionListener){
         someItem.setActionCommand(actionCommand);
-        someItem.addActionListener(this);
+        someItem.addActionListener(someActionListener);
     }
 
     public static String askForNameWithPopup(JFrame theFrame){
@@ -46,7 +46,8 @@ public class MainWindowController implements ActionListener {
                 try {
                     PackageClass newPackage = new PackageClass(value);
                     myModel.addValueByName(newPackage);
-                    myView.addPackages(newPackage);
+                    GUIPackagePanel newGUIPackage = myView.addPackages(newPackage);
+                    PackagePanelController ppc = new PackagePanelController(newGUIPackage, newPackage);
                 } catch (AlreadyExistingStringException e) {
                     JOptionPane.showMessageDialog(null, "Error: package with name "+e.getWanted()+" already exists");
                 }

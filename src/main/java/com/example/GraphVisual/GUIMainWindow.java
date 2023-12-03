@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import com.example.GraphController.PackagePanelController;
 import com.example.GraphModel.UML_Model.AlreadyExistingStringException;
 import com.example.GraphModel.UML_Model.PackageClass;
 import com.example.GraphModel.UML_Model.UmlGraph;
@@ -77,19 +79,21 @@ public class GUIMainWindow extends UniqPacketByName<GUIPackagePanel> implements 
         return new Dimension((int) Math.round(x*0.9/n), (int) Math.round(y*0.9/n));
     }
 
-    public void addPackages(PackageClass somePackage){
+    public GUIPackagePanel addPackages(PackageClass somePackage){
         GUIPackagePanel newGuiPackagePanel = new GUIPackagePanel(somePackage.getName());
+        
         try {
             this.addValueByName(newGuiPackagePanel);
         } catch (AlreadyExistingStringException e) {
             JOptionPane.showMessageDialog(null, "Error: impossible thing just happened");
-            return;
+            return null;
             //Not supposed to happen because test is already implemented in Controller
         }        
         this.Packages.add(newGuiPackagePanel);
         refreshSizeOnPackages();
         newGuiPackagePanel.setBounds(50, 50, (int) Math.round(newGuiPackagePanel.getPreferredSize().getWidth()), (int) Math.round(newGuiPackagePanel.getPreferredSize().getHeight()));
         newGuiPackagePanel.setBackground(Color.LIGHT_GRAY); 
+        return newGuiPackagePanel;
     }
 
     public GUIRightClickMainMenu getMainPopup(){

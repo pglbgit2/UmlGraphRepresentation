@@ -16,4 +16,8 @@ public class GUIRightClickPackageMenu extends JPopupMenu{
         loadClass = new JMenuItem("Load Class");
         add(loadClass);
     }
+
+    public JMenuItem getAddClass(){
+        return this.addClass;
+    }
 }
