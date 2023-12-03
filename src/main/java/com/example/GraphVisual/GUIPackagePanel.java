@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import com.example.GraphModel.UML_Model.Classes;
 import com.example.GraphModel.UML_Model.Nameable;
 import com.example.GraphModel.UML_Model.UniqPacketByName;
 import com.example.GraphVisual.UtilsFromStackOverFlow.DraggableHelper;
@@ -26,6 +27,9 @@ public class GUIPackagePanel extends JPanel implements Nameable {
 
     public void setName(String _name){
         this.name.setText(_name);
+    }
+    public GUIClassPanel addClasses(Classes newClasse) {
+        return null;
     }
 
 }

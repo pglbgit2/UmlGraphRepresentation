@@ -47,7 +47,7 @@ public class MainWindowController implements ActionListener {
                     PackageClass newPackage = new PackageClass(value);
                     myModel.addValueByName(newPackage);
                     GUIPackagePanel newGUIPackage = myView.addPackages(newPackage);
-                    PackagePanelController ppc = new PackagePanelController(newGUIPackage, newPackage);
+                    PackagePanelController ppc = new PackagePanelController(newGUIPackage, newPackage, this.myView.getFrame());
                 } catch (AlreadyExistingStringException e) {
                     JOptionPane.showMessageDialog(null, "Error: package with name "+e.getWanted()+" already exists");
                 }

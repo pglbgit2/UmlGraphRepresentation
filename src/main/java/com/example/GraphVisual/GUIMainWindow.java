@@ -38,9 +38,7 @@ public class GUIMainWindow extends UniqPacketByName<GUIPackagePanel> implements 
         this.myMenuPanel.setBackground(Color.GREEN);
         this.myMenuPanel.add(myMenuBar);
         this.mainPanel.setPreferredSize(new Dimension(800,800));
-        
         this.mainPanel.add(myMenuPanel, BorderLayout.NORTH);
-
         this.contentPanel = new JPanel(new BorderLayout());
         this.infoPackage = new JLabel("Packages");
         this.infoPackage.setPreferredSize(new Dimension(50, 50));

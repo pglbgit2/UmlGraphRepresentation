@@ -5,4 +5,8 @@ public class NoValidVisibilityException extends Exception {
     public NoValidVisibilityException(String attr){
         this.attribute = attr;
     }
+
+    public String getAttr(){
+        return this.attribute;
+    }
 }
