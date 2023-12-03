@@ -7,7 +7,7 @@ import com.example.GraphVisual.GUIMainWindow;
 public class Main {
     public static void main(String[] args) {
         UmlGraph myModel = new UmlGraph();
-        GUIMainWindow myView = new GUIMainWindow();
+        GUIMainWindow myView = new GUIMainWindow(myModel);
         MainWindowController myController = new MainWindowController(myModel, myView);
         myView.launchGui();
     }

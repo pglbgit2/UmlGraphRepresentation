@@ -5,4 +5,8 @@ public class AlreadyExistingStringException extends Exception{
     public AlreadyExistingStringException(String Value){
         this.wantedValue = Value;
     }
+
+    public String getWanted(){
+        return this.wantedValue;
+    }
 }

@@ -6,6 +6,10 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
+import com.example.GraphModel.UML_Model.AlreadyExistingStringException;
+import com.example.GraphModel.UML_Model.PackageClass;
 import com.example.GraphModel.UML_Model.UmlGraph;
 import com.example.GraphVisual.GUIMainWindow;
 import com.example.GraphVisual.GUIPackagePanel;
@@ -38,7 +42,15 @@ public class MainWindowController implements ActionListener {
     public void actionPerformed(ActionEvent arg0) {
         if(arg0.getActionCommand().compareTo("addPackage") == 0){
             String value = askForNameWithPopup(this.myView.getFrame());
-            System.out.println(value); 
+            if(value != null && value.compareTo("") != 0){
+                try {
+                    PackageClass newPackage = new PackageClass(value);
+                    myModel.addValueByName(newPackage);
+                    myView.addPackages(newPackage);
+                } catch (AlreadyExistingStringException e) {
+                    JOptionPane.showMessageDialog(null, "Error: package with name "+e.getWanted()+" already exists");
+                }
+            }
        }
     }
 }
