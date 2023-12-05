@@ -69,13 +69,7 @@ public class UniqPacketByKey<V> {
         return theValues.size();
     }
 
-    public String[] getValues(){
-        ArrayList<String> theValues = new ArrayList<String>();
-        for(String key : this.myHashMap.keySet()){
-            theValues.add(this.myHashMap.get(key).toString());
-        }
-        return (String[]) theValues.toArray();
-    }
+    
 
     public String toStringWithSeparator(String separator, boolean keepLastSeparator){
         String str = "";

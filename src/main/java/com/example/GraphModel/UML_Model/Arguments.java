@@ -1,5 +1,6 @@
 package com.example.GraphModel.UML_Model;
 
+import java.util.ArrayList;
 
 public class Arguments {
     private UniqPacketByName<Attribute> argumentList;
@@ -33,8 +34,8 @@ public class Arguments {
         this.argumentList.deleteValueBykey(name);
     }    
 
-    public String[] getArgs(){
-        return this.argumentList.getValues();
+    public ArrayList<Attribute> getArgs(){
+        return this.argumentList.getPackets();
     }
 
     public String toStringWithSeparator(String separator, boolean keepLastSeparator){

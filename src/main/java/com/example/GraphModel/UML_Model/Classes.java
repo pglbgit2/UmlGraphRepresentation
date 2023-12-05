@@ -1,6 +1,8 @@
 package com.example.GraphModel.UML_Model;
 //TODO: treat the extends
 
+import java.util.ArrayList;
+
 public class Classes implements Nameable {
     private Arguments myAttributes;
     private UniqPacketByNameAndArguments<Method> myMethods;
@@ -41,6 +43,11 @@ public class Classes implements Nameable {
 
     public void removeMethod(String methodName, String[] args){
         this.myMethods.deleteValue(methodName, args);
+    }
+
+
+    public ArrayList<Attribute> getAttributes(){
+        return this.myAttributes.getArgs();
     }
 
     public void modifyMethod(){

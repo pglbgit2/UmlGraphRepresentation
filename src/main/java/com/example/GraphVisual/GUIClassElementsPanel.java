@@ -13,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
 public class GUIClassElementsPanel extends JPanel {
 
     JTable myTable;
-    JTextField nbLineToRemove;
     ArrayList<JLabel> columnsNames;
     DefaultTableModel myModel;
     JPanel namePanel;
@@ -25,7 +24,6 @@ public class GUIClassElementsPanel extends JPanel {
         this.myModel = new DefaultTableModel(columns.toArray(), 0);
         this.myTable = new JTable(myModel);
         this.nbRows = 0;
-        this.nbLineToRemove = new JTextField(5);
         this.columnsNames = new ArrayList<JLabel>();
         for(int i = 0; i < columns.size() ; i++){
             this.columnsNames.add(new JLabel(columns.get(i)));
@@ -38,5 +36,13 @@ public class GUIClassElementsPanel extends JPanel {
         this.tabPanel.add(this.myTable);
         this.add(namePanel);
         this.add(tabPanel);
+    }
+
+    public JTable getTable(){
+        return this.myTable;
+    }
+
+    public DefaultTableModel getTableModel(){
+        return this.myModel;
     }
 }

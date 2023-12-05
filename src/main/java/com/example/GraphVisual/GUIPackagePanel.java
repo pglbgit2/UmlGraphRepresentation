@@ -9,7 +9,6 @@ import com.example.GraphModel.UML_Model.AlreadyExistingStringException;
 import com.example.GraphModel.UML_Model.Classes;
 import com.example.GraphModel.UML_Model.Nameable;
 import com.example.GraphModel.UML_Model.UniqPacketByName;
-import com.example.GraphVisual.UtilsFromStackOverFlow.DraggableHelper;
 
 public class GUIPackagePanel extends JPanel implements Nameable {
     JPopupMenu rightClickPackageMenu;
@@ -20,7 +19,7 @@ public class GUIPackagePanel extends JPanel implements Nameable {
         this.name = new JLabel(_name);
         this.myClasses = new UniqPacketByName<GUIClassPanel>();
         this.add(name);
-        DraggableHelper beGrabbable = new DraggableHelper(this);
+        //DraggableHelper beGrabbable = new DraggableHelper(this);
     }
     public String getName(){
         return this.name.getText();        
@@ -31,10 +30,14 @@ public class GUIPackagePanel extends JPanel implements Nameable {
     }
 
     public GUIClassPanel addClasses(Classes newClasse) throws AlreadyExistingStringException {
-       GUIClassPanel newGUIClass = new GUIClassPanel(newClasse.getName());
+       GUIClassPanel newGUIClass = new GUIClassPanel(newClasse.getName(), newClasse, this);
        this.myClasses.addValueByName(newGUIClass);
        this.add(newGUIClass);
        return newGUIClass;
+    }
+
+    public int getNbOfValue(){
+        return this.myClasses.getSize();
     }
 
 }

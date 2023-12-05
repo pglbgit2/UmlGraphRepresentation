@@ -13,6 +13,14 @@ public class GUIRightClickClassMenu extends JPopupMenu {
         addMethod = new JMenuItem("Add Method");
         add(addMethod);
     }
+
+    public JMenuItem getAddAttribute(){
+        return this.addAttribute;
+    }
+
+    public JMenuItem getAddMethod(){
+        return this.addMethod;
+    }
 }
 
 
