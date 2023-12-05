@@ -31,13 +31,13 @@ public class GUIPackagePanel extends JPanel implements Nameable {
     }
 
     public void refreshClassSize(){
-        Dimension fd = this.getBounds().getSize();
+        Dimension fd = this.getPreferredSize();
         int n = this.getNbOfValue();
         double x = fd.getWidth();
         double y = fd.getHeight();
         for(GUIClassPanel classe: myClasses.getPackets()){
-            classe.setSize(new Dimension((int) Math.round(x*0.9/n), (int) Math.round(y*0.9/n)));
-            Dimension d = classe.getBounds().getSize();
+            Dimension d = new Dimension((int) Math.round(x*0.9), (int) Math.round(y*0.9/n));
+            classe.setPreferredSize(d);
             classe.className.setSize(new Dimension((int) Math.round(d.getWidth()*1),(int) Math.round(d.getHeight()*0.05)));
             classe.attributesPanel.setSize(new Dimension((int) Math.round(d.getWidth()*1),(int) Math.round(d.getHeight()*0.3)));
             classe.methodsPanel.setSize(new Dimension((int) Math.round(d.getWidth()*1),(int) Math.round(d.getHeight()*0.3)));
@@ -49,7 +49,6 @@ public class GUIPackagePanel extends JPanel implements Nameable {
        GUIClassPanel newGUIClass = new GUIClassPanel(newClasse.getName(), newClasse);
        this.myClasses.addValueByName(newGUIClass);
        this.add(newGUIClass);
-       refreshClassSize();
        return newGUIClass;
     }
 

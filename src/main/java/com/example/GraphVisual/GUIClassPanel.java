@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -48,11 +49,10 @@ public class GUIClassPanel extends JPanel implements Nameable{
         methodsNames.add("Method");
         this.methodsPanel = new GUIClassElementsPanel("Method", methodsNames);
         this.add(this.methodsPanel);
-        this.setBorder(new EmptyBorder(20, 20, 20, 20));
-        this.setBackground(Color.LIGHT_GRAY); 
 
         this.myPopup = new GUIRightClickClassMenu();
         this.setComponentPopupMenu(myPopup);
+        this.setBackground(Color.WHITE); 
     }
 
     

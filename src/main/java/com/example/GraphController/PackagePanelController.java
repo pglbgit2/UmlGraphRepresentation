@@ -50,6 +50,7 @@ public class PackagePanelController implements ActionListener{
                 try {
                     Classes newClasse = new Classes(values.get(0), args);
                     myPackageClass.addValueByName(newClasse);
+                    myGuiPackagePanel.refreshClassSize();
                     GUIClassPanel newGUIPackage = myGuiPackagePanel.addClasses(newClasse);
                     ClassPanelController cpc = new ClassPanelController(newGUIPackage, newClasse, this.myFrame);
                 } catch (AlreadyExistingStringException e) {

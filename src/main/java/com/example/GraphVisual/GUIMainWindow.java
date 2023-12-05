@@ -89,7 +89,6 @@ public class GUIMainWindow extends UniqPacketByName<GUIPackagePanel> implements 
         }        
         this.Packages.add(newGuiPackagePanel);
         refreshSizeOnPackages();
-        newGuiPackagePanel.setBounds(50, 50, (int) Math.round(newGuiPackagePanel.getPreferredSize().getWidth()), (int) Math.round(newGuiPackagePanel.getPreferredSize().getHeight()));
         newGuiPackagePanel.setBackground(Color.LIGHT_GRAY); 
         return newGuiPackagePanel;
     }
