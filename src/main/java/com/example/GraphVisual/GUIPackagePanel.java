@@ -21,7 +21,6 @@ public class GUIPackagePanel extends JPanel implements Nameable {
         this.name = new JLabel(_name);
         this.myClasses = new UniqPacketByName<GUIClassPanel>();
         this.add(name);
-        //DraggableHelper beGrabbable = new DraggableHelper(this);
     }
     public String getName(){
         return this.name.getText();        
