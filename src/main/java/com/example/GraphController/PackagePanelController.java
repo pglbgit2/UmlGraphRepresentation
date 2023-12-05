@@ -39,7 +39,7 @@ public class PackagePanelController implements ActionListener{
         if(arg0.getActionCommand().compareTo("addClass") == 0){
             ArrayList<String> values = askForNameAndArgsWithPopup();
             if(values != null){
-            String[] args = new String[values.size()];
+            String[] args = new String[values.size()-1];
             int i = 0;
             for(String val : values){
                 if(i != 0){
@@ -51,9 +51,9 @@ public class PackagePanelController implements ActionListener{
                     Classes newClasse = new Classes(values.get(0), args);
                     myPackageClass.addValueByName(newClasse);
                     GUIClassPanel newGUIPackage = myGuiPackagePanel.addClasses(newClasse);
-                    ClassPanelController cpc = new ClassPanelController(newGUIPackage, newClasse);
+                    ClassPanelController cpc = new ClassPanelController(newGUIPackage, newClasse, this.myFrame);
                 } catch (AlreadyExistingStringException e) {
-                    JOptionPane.showMessageDialog(null, "Error: package with name "+e.getWanted()+" already exists");
+                    JOptionPane.showMessageDialog(null, "Error: class with name "+e.getWanted()+" already exists");
                 } catch (NoValidVisibilityException e) {
                     JOptionPane.showMessageDialog(null, "Error: this "+e.getAttr()+" is not accepted");
                 }

@@ -17,17 +17,25 @@ public class PopupArgsController implements ActionListener{
     }
 
     public ArrayList<String> getValue() {
+        this.name = this.myPopup.getNameField().getText();
+        if(name == null){
+           return null;
+        }
+        this.args = this.myPopup.getArgsField().getText();
        ArrayList<String> nameArgs = new ArrayList<String>();
         nameArgs.add(name);
-        String[] argsTab = args.split(", ");
-        if(argsTab == null){
-            nameArgs.add(args);
-        }
-        else{
+        if(args.contains(", ")){
+            String[] argsTab = args.split(", ");     
            for(String arg : argsTab){
                 nameArgs.add(arg);
+           }
+        }
+        else{
+            if(args != null && args.compareTo("") != 0){
+                nameArgs.add(args);
             }
         }
+        
        return nameArgs;
     }
 

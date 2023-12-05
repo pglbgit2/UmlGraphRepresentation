@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import com.example.GraphController.PackagePanelController;
 import com.example.GraphModel.UML_Model.AlreadyExistingStringException;
 import com.example.GraphModel.UML_Model.PackageClass;
 import com.example.GraphModel.UML_Model.UmlGraph;
@@ -30,7 +29,7 @@ public class GUIMainWindow extends UniqPacketByName<GUIPackagePanel> implements 
     public GUIMainWindow(UmlGraph someModel){
         this.myFrame = new JFrame("UML PROJECT");
 	    this.myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-
+        this.myFrame.setSize(new Dimension(900, 900));
         this.mainPanel = new JPanel(new BorderLayout());
 
         this.myMenuBar = new GUIMenuBar();
@@ -109,7 +108,6 @@ public class GUIMainWindow extends UniqPacketByName<GUIPackagePanel> implements 
 
     @Override
     public void run() {
-        myFrame.pack();
 	    myFrame.setVisible(true);
     }
 

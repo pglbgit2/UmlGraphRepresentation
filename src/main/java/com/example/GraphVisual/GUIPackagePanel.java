@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import com.example.GraphModel.UML_Model.AlreadyExistingStringException;
 import com.example.GraphModel.UML_Model.Classes;
 import com.example.GraphModel.UML_Model.Nameable;
 import com.example.GraphModel.UML_Model.UniqPacketByName;
@@ -28,8 +29,12 @@ public class GUIPackagePanel extends JPanel implements Nameable {
     public void setName(String _name){
         this.name.setText(_name);
     }
-    public GUIClassPanel addClasses(Classes newClasse) {
-        return null;
+
+    public GUIClassPanel addClasses(Classes newClasse) throws AlreadyExistingStringException {
+       GUIClassPanel newGUIClass = new GUIClassPanel(newClasse.getName());
+       this.myClasses.addValueByName(newGUIClass);
+       this.add(newGUIClass);
+       return newGUIClass;
     }
 
 }
