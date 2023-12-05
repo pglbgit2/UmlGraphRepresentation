@@ -57,6 +57,7 @@ public class GUIMainWindow extends UniqPacketByName<GUIPackagePanel> implements 
         Dimension opti = getOptimalDimensionForNewPackage();
         for(GUIPackagePanel pack : this.getPackets()){
             pack.setPreferredSize(opti);
+            pack.refreshClassSize();
         }
     }
 

@@ -24,10 +24,9 @@ public class GUIClassPanel extends JPanel implements Nameable{
     GUIClassElementsPanel methodsPanel;
     JLabel className;
     Classes myClass;
-    GUIPackagePanel myFatherPanel;
     GUIRightClickClassMenu myPopup;
 
-    public GUIClassPanel(String _name, Classes myClass, GUIPackagePanel myFatherPanel){
+    public GUIClassPanel(String _name, Classes myClass){
         this.upPanel = new JPanel();
         className = new JLabel(_name);
         this.upPanel.add(className);
@@ -54,22 +53,9 @@ public class GUIClassPanel extends JPanel implements Nameable{
 
         this.myPopup = new GUIRightClickClassMenu();
         this.setComponentPopupMenu(myPopup);
-        this.myFatherPanel = myFatherPanel;
-        refreshSize();
     }
 
-    public void refreshSize(){
-        Dimension fd = myFatherPanel.getBounds().getSize();
-        int n = myFatherPanel.getNbOfValue();
-        double x = fd.getWidth();
-        double y = fd.getHeight();
-        this.setPreferredSize(new Dimension((int) Math.round(x*0.9/n), (int) Math.round(y*0.9/n)));
-        Dimension d = this.getBounds().getSize();
-        this.className.setPreferredSize(new Dimension((int) Math.round(d.getWidth()*1),(int) Math.round(d.getHeight()*0.1)));
-        this.attributesPanel.setPreferredSize(new Dimension((int) Math.round(d.getWidth()*1),(int) Math.round(d.getHeight()*0.3)));
-        this.methodsPanel.setPreferredSize(new Dimension((int) Math.round(d.getWidth()*1),(int) Math.round(d.getHeight()*0.3)));
-        this.constructorPanel.setPreferredSize(new Dimension((int) Math.round(d.getWidth()*1),(int) Math.round(d.getHeight()*0.3)));
-    }
+    
 
     public GUIRightClickClassMenu getPopup(){
         return this.myPopup;
