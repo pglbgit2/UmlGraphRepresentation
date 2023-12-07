@@ -106,5 +106,7 @@ public class GUIClassPanel extends JPanel implements Nameable{
     public int incAttNb() {
         return this.attributesPanel.nbRows++;
     }
-    
+    public int incMethodNb(){
+        return this.methodsPanel.nbRows++;
+    }
 }

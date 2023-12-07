@@ -7,4 +7,12 @@ public class NotGoodFormatException extends Exception{
         this.actual = actualFormat;
         this.expect = expectedFormat;
     }  
+
+    public String getExpected(){
+        return this.expect;
+    }
+
+    public String getActual(){
+        return this.actual;
+    }
 }
