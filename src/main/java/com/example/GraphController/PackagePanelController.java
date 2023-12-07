@@ -50,8 +50,8 @@ public class PackagePanelController implements ActionListener{
                 try {
                     Classes newClasse = new Classes(values.get(0), args);
                     myPackageClass.addValueByName(newClasse);
-                    myGuiPackagePanel.refreshClassSize();
                     GUIClassPanel newGUIPackage = myGuiPackagePanel.addClasses(newClasse);
+                    myGuiPackagePanel.refreshClassSize();
                     ClassPanelController cpc = new ClassPanelController(newGUIPackage, newClasse, this.myFrame);
                 } catch (AlreadyExistingStringException e) {
                     JOptionPane.showMessageDialog(null, "Error: class with name "+e.getWanted()+" already exists");

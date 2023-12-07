@@ -4,6 +4,7 @@ package com.example.GraphVisual;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.GridLayout;
 
@@ -18,6 +19,7 @@ public class GUIClassElementsPanel extends JPanel {
     JPanel namePanel;
     JPanel tabPanel;
     int nbRows;
+    JScrollPane myPane;
 
     public GUIClassElementsPanel(String type, ArrayList<String> columns){
         super(new GridLayout(2, 1));
@@ -35,7 +37,8 @@ public class GUIClassElementsPanel extends JPanel {
         }
         this.tabPanel.add(this.myTable);
         this.add(namePanel);
-        this.add(tabPanel);
+        this.myPane = new JScrollPane(tabPanel); 
+        this.add(myPane);
     }
 
     public JTable getTable(){

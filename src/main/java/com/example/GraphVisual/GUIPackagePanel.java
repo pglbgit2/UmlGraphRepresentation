@@ -38,10 +38,9 @@ public class GUIPackagePanel extends JPanel implements Nameable {
         for(GUIClassPanel classe: myClasses.getPackets()){
             Dimension d = new Dimension((int) Math.round(x*0.9), (int) Math.round(y*0.9/n));
             classe.setPreferredSize(d);
-            classe.className.setSize(new Dimension((int) Math.round(d.getWidth()*1),(int) Math.round(d.getHeight()*0.05)));
-            classe.attributesPanel.setSize(new Dimension((int) Math.round(d.getWidth()*1),(int) Math.round(d.getHeight()*0.3)));
-            classe.methodsPanel.setSize(new Dimension((int) Math.round(d.getWidth()*1),(int) Math.round(d.getHeight()*0.3)));
-            classe.constructorPanel.setSize(new Dimension((int) Math.round(d.getWidth()*1),(int) Math.round(d.getHeight()*0.3)));
+            classe.upPanel.setPreferredSize(new Dimension((int) Math.round(d.getWidth()*0.9),(int) Math.round(d.getHeight()*0.05)));
+            classe.contentPanel.setPreferredSize(new Dimension((int) Math.round(d.getWidth()*0.9),(int) Math.round(d.getHeight()*0.85)));
+            classe.refreshSize();
         }
     }
 

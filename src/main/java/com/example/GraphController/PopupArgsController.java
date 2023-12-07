@@ -18,7 +18,7 @@ public class PopupArgsController implements ActionListener{
 
     public ArrayList<String> getValue() {
         this.name = this.myPopup.getNameField().getText();
-        if(name == null){
+        if(name == null || name.compareTo("") == 0){
            return null;
         }
         this.args = this.myPopup.getArgsField().getText();

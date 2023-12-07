@@ -26,35 +26,45 @@ public class GUIClassPanel extends JPanel implements Nameable{
     JLabel className;
     Classes myClass;
     GUIRightClickClassMenu myPopup;
+    JPanel contentPanel;
 
     public GUIClassPanel(String _name, Classes myClass){
+        
         this.upPanel = new JPanel();
         className = new JLabel(_name);
         this.upPanel.add(className);
         this.add(this.upPanel);
+        this.contentPanel = new JPanel();
 
         ArrayList<String> attributesNames = new ArrayList<String>();
         attributesNames.add("Attribute ");
         attributesNames.add("HasGetter");
         attributesNames.add("HasSetter");
         this.attributesPanel = new GUIClassElementsPanel("Attribute", attributesNames);
-        this.add(this.attributesPanel);
+        this.contentPanel.add(this.attributesPanel);
 
         ArrayList<String> constructorsNames = new ArrayList<String>();
         constructorsNames.add("Constructor");
         this.constructorPanel = new GUIClassElementsPanel("Constructor", constructorsNames);
-        this.add(this.constructorPanel);
+        this.contentPanel.add(this.constructorPanel);
 
         ArrayList<String> methodsNames = new ArrayList<String>();
         methodsNames.add("Method");
         this.methodsPanel = new GUIClassElementsPanel("Method", methodsNames);
-        this.add(this.methodsPanel);
+        this.contentPanel.add(this.methodsPanel);
+        this.add(contentPanel);
 
         this.myPopup = new GUIRightClickClassMenu();
         this.setComponentPopupMenu(myPopup);
         this.setBackground(Color.WHITE); 
     }
 
+    public void refreshSize(){
+        Dimension d = this.contentPanel.getPreferredSize();
+        this.attributesPanel.setPreferredSize(new Dimension((int) Math.round(d.getWidth()*0.9),(int) Math.round(d.getHeight()*0.25)));
+        this.methodsPanel.setPreferredSize(new Dimension((int) Math.round(d.getWidth()*0.9),(int) Math.round(d.getHeight()*0.25)));
+        this.constructorPanel.setPreferredSize(new Dimension((int) Math.round(d.getWidth()*0.9),(int) Math.round(d.getHeight()*0.25)));
+    }
     
 
     public GUIRightClickClassMenu getPopup(){
