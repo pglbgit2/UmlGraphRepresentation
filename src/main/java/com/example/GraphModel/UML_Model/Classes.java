@@ -50,6 +50,10 @@ public class Classes implements Nameable {
         return this.myAttributes.getArgs();
     }
 
+     public ArrayList<Method> getMethods(){
+        return this.myMethods.getPackets();
+    }
+
     public void modifyMethod(){
         //TODO
     }

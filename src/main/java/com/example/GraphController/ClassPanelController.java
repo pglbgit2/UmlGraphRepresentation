@@ -24,11 +24,10 @@ public class ClassPanelController implements ActionListener{
         GUIRightClickClassMenu somePopup = this.myGuiClassPanel.getPopup();
         MainWindowController.linkWithMenuComponent(somePopup.getAddAttribute(), "addAttribute", this);
         MainWindowController.linkWithMenuComponent(somePopup.getAddMethod(),"addMethod",this);
-        for(Attribute attr : newClasse.getAttributes()){
-            addAttr(attr.toString());
-        }
+        this.myGuiClassPanel.refreshContent();
     }
 
+    @Deprecated
     public void addAttr(String attr){
         DefaultTableModel dtm = this.myGuiClassPanel.getAttributeTableModel();
         dtm.addRow(new Object[dtm.getColumnCount()]);
@@ -38,15 +37,18 @@ public class ClassPanelController implements ActionListener{
 
 
     public void addAttrLine(){
-        DefaultTableModel dtm = this.myGuiClassPanel.getAttributeTableModel();
-        dtm.addRow(new Object[dtm.getColumnCount()]);
+        this.myGuiClassPanel.getAttributesPanel().addLine();
         this.myGuiClassPanel.incAttNb();
     }
 
     public void addMethodLine(){
-        DefaultTableModel dtm = this.myGuiClassPanel.getMethodTableModel();
-        dtm.addRow(new Object[dtm.getColumnCount()]);
+        this.myGuiClassPanel.getMethodsPanel().addLine();
         this.myGuiClassPanel.incMethodNb();
+    }
+
+    public void addConstructorLine(){
+        this.myGuiClassPanel.getConstructorPanel().addLine();
+        this.myGuiClassPanel.incConsNb();
     }
 
     @Override
@@ -56,6 +58,9 @@ public class ClassPanelController implements ActionListener{
         }
         if(arg0.getActionCommand().compareTo("addMethod") == 0){
             addMethodLine();
+        }
+        if(arg0.getActionCommand().compareTo("addConstructor") == 0){
+            addConstructorLine();
         }
     }
     

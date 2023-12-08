@@ -65,7 +65,9 @@ public class Method extends Typeable implements HaveArguments{
         return this.arguments.toString();
     }
 
-    
+    public String getMethodForGUI(){
+        return super.toString()+" "+this.getName()+"("+this.arguments.toString()+")";
+    }
 
     @Override
     public String toString(){

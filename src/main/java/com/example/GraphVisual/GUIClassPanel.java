@@ -13,7 +13,9 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.example.GraphModel.UML_Model.Attribute;
 import com.example.GraphModel.UML_Model.Classes;
+import com.example.GraphModel.UML_Model.Method;
 import com.example.GraphModel.UML_Model.Nameable;
 
 public class GUIClassPanel extends JPanel implements Nameable{
@@ -57,6 +59,7 @@ public class GUIClassPanel extends JPanel implements Nameable{
         this.myPopup = new GUIRightClickClassMenu();
         this.setComponentPopupMenu(myPopup);
         this.setBackground(Color.WHITE); 
+        this.myClass = myClass;
     }
 
     public void refreshSize(){
@@ -70,6 +73,19 @@ public class GUIClassPanel extends JPanel implements Nameable{
     public GUIRightClickClassMenu getPopup(){
         return this.myPopup;
     }
+
+    public GUIClassElementsPanel getAttributesPanel(){
+         return this.attributesPanel;
+    }
+
+    public GUIClassElementsPanel getMethodsPanel(){
+         return this.methodsPanel;
+    }
+
+    public GUIClassElementsPanel getConstructorPanel(){
+         return this.constructorPanel;
+    }
+
 
     public JTable getAttributeTable(){
         return this.attributesPanel.getTable();
@@ -108,5 +124,38 @@ public class GUIClassPanel extends JPanel implements Nameable{
     }
     public int incMethodNb(){
         return this.methodsPanel.nbRows++;
+    }
+
+
+
+    public void refreshContent() {
+        this.attributesPanel.myModel = new DefaultTableModel(this.attributesPanel.columns.toArray(), 0);
+        this.attributesPanel.myTable = new JTable(this.attributesPanel.myModel);
+        for(Attribute att : this.myClass.getAttributes()){
+            this.attributesPanel.addLine();
+            this.attributesPanel.myModel.setValueAt(att.toString(), this.attributesPanel.myModel.getRowCount()-1,0);
+        }
+        this.methodsPanel.myModel = new DefaultTableModel(this.methodsPanel.columns.toArray(), 0);
+        this.methodsPanel.myTable = new JTable(this.methodsPanel.myModel);
+        this.constructorPanel.myModel = new DefaultTableModel(this.constructorPanel.columns.toArray(), 0);
+        this.constructorPanel.myTable = new JTable(this.constructorPanel.myModel);
+        for(Method method : this.myClass.getMethods()){
+            if(method.getName().compareTo(this.myClass.getName()) == 0){
+                this.constructorPanel.addLine();
+                this.constructorPanel.myModel.setValueAt(method.getMethodForGUI(), this.constructorPanel.myModel.getRowCount()-1,0);
+            }
+            else{
+                this.methodsPanel.addLine();
+                this.methodsPanel.myModel.setValueAt(method.getMethodForGUI(), this.methodsPanel.myModel.getRowCount()-1,0);
+            }
+        }
+        this.attributesPanel.refresh();
+        this.methodsPanel.refresh();
+        this.constructorPanel.refresh();
+
+    }
+
+    public int incConsNb() {
+        return this.constructorPanel.nbRows++;
     }
 }

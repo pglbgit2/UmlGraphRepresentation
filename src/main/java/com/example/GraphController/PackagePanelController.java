@@ -43,9 +43,9 @@ public class PackagePanelController implements ActionListener{
 
     private void addClass(Classes newClasse) throws AlreadyExistingStringException{
         myPackageClass.addValueByName(newClasse);
-        GUIClassPanel newGUIPackage = myGuiPackagePanel.addClasses(newClasse);
+        GUIClassPanel newGUIClass = myGuiPackagePanel.addClasses(newClasse);
         myGuiPackagePanel.refreshClassSize();
-        ClassPanelController cpc = new ClassPanelController(newGUIPackage, newClasse, this.myFrame);
+        ClassPanelController cpc = new ClassPanelController(newGUIClass, newClasse, this.myFrame);
     }
 
     @Override

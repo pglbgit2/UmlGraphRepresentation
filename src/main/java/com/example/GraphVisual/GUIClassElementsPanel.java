@@ -19,6 +19,7 @@ public class GUIClassElementsPanel extends JPanel {
     JPanel namePanel;
     JPanel tabPanel;
     int nbRows;
+    ArrayList<String> columns;
     JScrollPane myPane;
 
     public GUIClassElementsPanel(String type, ArrayList<String> columns){
@@ -30,6 +31,7 @@ public class GUIClassElementsPanel extends JPanel {
         for(int i = 0; i < columns.size() ; i++){
             this.columnsNames.add(new JLabel(columns.get(i)));
         }
+        this.columns = columns;
         this.namePanel = new JPanel(new GridLayout(1, this.columnsNames.size()));
         this.tabPanel = new JPanel(new GridLayout(1,1));
         for(JLabel lab : this.columnsNames){
@@ -40,6 +42,16 @@ public class GUIClassElementsPanel extends JPanel {
         this.myPane = new JScrollPane(tabPanel); 
         this.add(myPane);
     }
+
+    public void refresh(){
+        this.tabPanel.remove(myTable);
+        this.tabPanel.add(myTable);
+    }
+
+    public void addLine(){
+        this.myModel.addRow(new Object[this.myModel.getColumnCount()]);
+    }
+
 
     public JTable getTable(){
         return this.myTable;
