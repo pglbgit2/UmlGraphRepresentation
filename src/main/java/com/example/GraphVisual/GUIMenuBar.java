@@ -6,14 +6,11 @@ import javax.swing.JMenuItem;
 
 public class GUIMenuBar extends JMenuBar{
     JMenuItem file;
-    JMenuItem loadPackage;
     JMenuItem writePackage;
 
     public GUIMenuBar(){
         file = new JMenu("File");
-        loadPackage = new JMenuItem("Load Package");
         writePackage = new JMenuItem("Write Graph");
-        file.add(loadPackage);
         file.add(writePackage);
         this.add(file);
     }

@@ -20,6 +20,7 @@ import com.example.GraphModel.UML_Model.NoValidVisibilityException;
 import com.example.GraphModel.UML_Model.PackageClass;
 import com.example.GraphVisual.GUIClassPanel;
 import com.example.GraphVisual.GUIPackagePanel;
+import com.example.GraphVisual.GUIPopupDestroyObject;
 import com.example.GraphVisual.GUIPopupGetNameArgs;
 import com.example.GraphVisual.GUIRightClickPackageMenu;
 
@@ -28,15 +29,18 @@ public class PackagePanelController implements ActionListener{
     GUIPackagePanel myGuiPackagePanel;
     PackageClass myPackageClass;
     JFrame myFrame;
+    MainWindowController fatherPanel;
 
-    public PackagePanelController(GUIPackagePanel myPackageView, PackageClass myPackageModel, JFrame Frame){
+    public PackagePanelController(GUIPackagePanel myPackageView, PackageClass myPackageModel, JFrame Frame, MainWindowController fatherPanel){
         this.myGuiPackagePanel = myPackageView;
         this.myPackageClass = myPackageModel;
         GUIRightClickPackageMenu GUIRCPM =  new GUIRightClickPackageMenu();
         this.myGuiPackagePanel.setComponentPopupMenu(GUIRCPM);
         MainWindowController.linkWithMenuComponent(GUIRCPM.getAddClass(), "addClass", this);
         MainWindowController.linkWithMenuComponent(GUIRCPM.getLoadClass(), "loadClass", this);
+        MainWindowController.linkWithMenuComponent(GUIRCPM.getDeletePackage(), "deletePackage", this);
         this.myFrame = Frame;
+        this.fatherPanel = fatherPanel;
     }
 
 
@@ -74,8 +78,6 @@ public class PackagePanelController implements ActionListener{
             }
         }
 
-
-
         if(arg0.getActionCommand().compareTo("loadClass") == 0){
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setMultiSelectionEnabled(true);
@@ -104,6 +106,16 @@ public class PackagePanelController implements ActionListener{
             } else {
                 JOptionPane.showMessageDialog(this.myFrame, "No file selected.");
             }
+        }
+        
+        if(arg0.getActionCommand().compareTo("deletePackage") == 0){
+            GUIPopupDestroyObject newPopup = new GUIPopupDestroyObject(myFrame);
+            PopupDeleteController newController = new PopupDeleteController(newPopup);
+            newPopup.setVisible(true);
+            if(newController.getValue()){
+                fatherPanel.deletePack(this);
+            }
+        
         }
         
     }

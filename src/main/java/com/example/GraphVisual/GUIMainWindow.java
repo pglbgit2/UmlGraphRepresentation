@@ -74,7 +74,11 @@ public class GUIMainWindow extends UniqPacketByName<GUIPackagePanel> implements 
         Dimension d = Packages.getBounds().getSize();
         double x = d.getWidth();
         double y = d.getHeight();
-        return new Dimension((int) Math.round(x*0.9/n), (int) Math.round(y*0.9/n));
+        return new Dimension((int) Math.round(x*0.9/n), (int) Math.round(y*0.9));
+    }
+
+    public JPanel getPackagesPanel(){
+        return this.Packages;
     }
 
     public GUIPackagePanel addPackages(PackageClass somePackage){
