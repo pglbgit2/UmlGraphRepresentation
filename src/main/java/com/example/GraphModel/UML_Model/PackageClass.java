@@ -3,6 +3,8 @@ package com.example.GraphModel.UML_Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.GraphController.PackagePanelController;
+
 public class PackageClass extends UniqPacketByName<Classes> implements Nameable {
     private String name;
 
@@ -34,4 +36,5 @@ public class PackageClass extends UniqPacketByName<Classes> implements Nameable 
     public void setName(String name) {
         this.name = name;
     }
+
 }

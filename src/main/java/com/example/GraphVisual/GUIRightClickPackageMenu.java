@@ -11,18 +11,12 @@ public class GUIRightClickPackageMenu extends JPopupMenu{
     public GUIRightClickPackageMenu() {
         addClass = new JMenuItem("Add Class");
         add(addClass);
-        removeClass = new JMenuItem("Remove Class");
-        add(removeClass);
         loadClass = new JMenuItem("Load Class");
         add(loadClass);
     }
 
     public JMenuItem getAddClass(){
         return this.addClass;
-    }
-
-    public JMenuItem getRemoveClass(){
-        return this.removeClass;
     }
 
     public JMenuItem getLoadClass(){

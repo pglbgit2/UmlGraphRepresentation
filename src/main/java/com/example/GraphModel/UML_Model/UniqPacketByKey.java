@@ -39,8 +39,10 @@ public class UniqPacketByKey<V> {
      * 
      * @param key
      */
-    public void deleteValueBykey(String key){
+    public V deleteValueBykey(String key){
+        V val = this.myHashMap.get(key);
         this.myHashMap.put(key, null);
+        return val;
     }
 
     public Set<String> getKeysSet(){

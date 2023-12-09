@@ -28,8 +28,8 @@ public class UniqPacketByName<V extends Nameable> extends UniqPacketByKey<V> {
      * 
      * @param name
      */
-    public void deleteValueByName(String name){
-        super.deleteValueBykey(name);
+    public V deleteValueByName(String name){
+        return super.deleteValueBykey(name);
     }
 
 }

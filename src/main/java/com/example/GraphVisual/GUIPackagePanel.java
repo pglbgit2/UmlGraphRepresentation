@@ -22,8 +22,13 @@ public class GUIPackagePanel extends JPanel implements Nameable {
         this.myClasses = new UniqPacketByName<GUIClassPanel>();
         this.add(name);
     }
+
     public String getName(){
         return this.name.getText();        
+    }
+
+    public UniqPacketByName<GUIClassPanel> getClasses(){
+        return this.myClasses;
     }
 
     public void setName(String _name){
@@ -42,6 +47,12 @@ public class GUIPackagePanel extends JPanel implements Nameable {
             classe.contentPanel.setPreferredSize(new Dimension((int) Math.round(d.getWidth()*0.9),(int) Math.round(d.getHeight()*0.85)));
             classe.refreshSize();
         }
+    }
+
+
+    public void deleteClass(Classes toDestroy){
+        GUIClassPanel toRemove = this.myClasses.deleteValueByName(toDestroy.getName());
+        this.remove(toRemove);
     }
 
     public GUIClassPanel addClasses(Classes newClasse) throws AlreadyExistingStringException {

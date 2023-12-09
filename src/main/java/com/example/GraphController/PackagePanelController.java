@@ -35,7 +35,6 @@ public class PackagePanelController implements ActionListener{
         GUIRightClickPackageMenu GUIRCPM =  new GUIRightClickPackageMenu();
         this.myGuiPackagePanel.setComponentPopupMenu(GUIRCPM);
         MainWindowController.linkWithMenuComponent(GUIRCPM.getAddClass(), "addClass", this);
-        MainWindowController.linkWithMenuComponent(GUIRCPM.getRemoveClass(), "removeClass", this);
         MainWindowController.linkWithMenuComponent(GUIRCPM.getLoadClass(), "loadClass", this);
         this.myFrame = Frame;
     }
@@ -45,7 +44,7 @@ public class PackagePanelController implements ActionListener{
         myPackageClass.addValueByName(newClasse);
         GUIClassPanel newGUIClass = myGuiPackagePanel.addClasses(newClasse);
         myGuiPackagePanel.refreshClassSize();
-        ClassPanelController cpc = new ClassPanelController(newGUIClass, newClasse, this.myFrame);
+        ClassPanelController cpc = new ClassPanelController(newGUIClass, newClasse, this.myFrame, this);
     }
 
     @Override
@@ -114,6 +113,15 @@ public class PackagePanelController implements ActionListener{
         PopupArgsController newController = new PopupArgsController(newPopup);
         newPopup.setVisible(true);
         return newController.getValue();
+    }
+
+
+    public void deleteClass(ClassPanelController classPanelController) {
+        Classes toDestroy = classPanelController.myClass;
+        this.myPackageClass.deleteValueByName(toDestroy.getName());
+        this.myGuiPackagePanel.deleteClass(toDestroy);
+        this.myFrame.revalidate();
+        this.myFrame.repaint();
     }
     
 }
