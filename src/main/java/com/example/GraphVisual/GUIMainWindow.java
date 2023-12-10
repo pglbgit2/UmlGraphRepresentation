@@ -60,6 +60,8 @@ public class GUIMainWindow extends UniqPacketByName<GUIPackagePanel> implements 
             pack.setPreferredSize(opti);
             pack.refreshClassSize();
         }
+        myFrame.revalidate();
+        myFrame.repaint();
     }
 
     public JMenuItem getWriteGraph(){

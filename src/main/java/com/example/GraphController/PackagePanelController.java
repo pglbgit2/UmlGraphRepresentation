@@ -45,7 +45,6 @@ public class PackagePanelController implements ActionListener{
     private void addClass(Classes newClasse) throws AlreadyExistingStringException{
         myPackageClass.addValueByName(newClasse);
         GUIClassPanel newGUIClass = myGuiPackagePanel.addClasses(newClasse);
-        myGuiPackagePanel.refreshClassSize();
         ClassPanelController cpc = new ClassPanelController(newGUIClass, newClasse, this.myFrame, this);
     }
 
@@ -65,6 +64,7 @@ public class PackagePanelController implements ActionListener{
                 try {
                     Classes newClasse = new Classes(values.get(0), args);
                     this.addClass(newClasse);
+                    this.fatherPanel.myView.refreshSizeOnPackages();
                 } catch (AlreadyExistingStringException e) {
                     JOptionPane.showMessageDialog(null, "Error: class with name "+e.getWanted()+" already exists");
                 } catch (NoValidVisibilityException e) {

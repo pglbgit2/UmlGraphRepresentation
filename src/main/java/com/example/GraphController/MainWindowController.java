@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-import com.example.GraphModel.GraphFileManager.ClassFileRetriever;
 import com.example.GraphModel.GraphFileManager.PackageDirWriter;
 import com.example.GraphModel.UML_Model.AlreadyExistingStringException;
 import com.example.GraphModel.UML_Model.PackageClass;
@@ -86,13 +85,11 @@ public class MainWindowController implements ActionListener {
                             JOptionPane.showMessageDialog(this.myView.getFrame(), "Problem occured while writing package"+onePack.getName()+". What have you done ? RUN, YOU FOOL !");
                             return;
                         }
-                        JOptionPane.showMessageDialog(this.myView.getFrame(), "Done !");
+                        JOptionPane.showMessageDialog(this.myView.getFrame(), "Done with "+onePack.getName()+"!");
                     }
-               
                 }
                 else{
                     JOptionPane.showMessageDialog(this.myView.getFrame(), "Cancel file writing");
-        
                 }
                 
             } else {
