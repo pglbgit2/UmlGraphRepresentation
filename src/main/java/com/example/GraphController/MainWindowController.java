@@ -2,9 +2,18 @@ package com.example.GraphController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+
+import com.example.GraphModel.GraphFileManager.ClassFileRetriever;
+import com.example.GraphModel.GraphFileManager.PackageDirWriter;
 import com.example.GraphModel.UML_Model.AlreadyExistingStringException;
 import com.example.GraphModel.UML_Model.PackageClass;
 import com.example.GraphModel.UML_Model.UmlGraph;
@@ -20,6 +29,7 @@ public class MainWindowController implements ActionListener {
         this.myModel = someModel;
         this.myView = someView;
         linkWithMenuComponent(this.myView.getMainPopup().getAddPackage(), "addPackage",this);
+        linkWithMenuComponent(this.myView.getWriteGraph(), "writeGraph",this);
     }
 
     public static void linkWithMenuComponent(JMenuItem someItem, String actionCommand, ActionListener someActionListener){
@@ -49,6 +59,46 @@ public class MainWindowController implements ActionListener {
                 }
             }
        }
+       if(arg0.getActionCommand().compareTo("writeGraph") == 0){
+            if(this.myModel.getPackets().size() == 0){
+                JOptionPane.showMessageDialog(this.myView.getFrame(), "No package to write.");
+                return;
+            }
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setMultiSelectionEnabled(false);
+            int result = fileChooser.showOpenDialog(this.myView.getFrame());
+            boolean writeFile = false;
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File someFile = fileChooser.getSelectedFile();
+                try {
+                    Files.createDirectory(Paths.get(someFile.getAbsolutePath()));
+                    writeFile = true;
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(this.myView.getFrame(), "Problem occured");
+                } 
+                
+                if(writeFile){
+                    for(PackageClass onePack : this.myModel.getPackets()){
+                        PackageDirWriter newPackageWriter = new PackageDirWriter(onePack);
+                        try {
+                            newPackageWriter.writePackage(fileChooser.getSelectedFile().getAbsolutePath());
+                        } catch (IOException e) {
+                            JOptionPane.showMessageDialog(this.myView.getFrame(), "Problem occured while writing package"+onePack.getName()+". What have you done ? RUN, YOU FOOL !");
+                            return;
+                        }
+                        JOptionPane.showMessageDialog(this.myView.getFrame(), "Done !");
+                    }
+               
+                }
+                else{
+                    JOptionPane.showMessageDialog(this.myView.getFrame(), "Cancel file writing");
+        
+                }
+                
+            } else {
+                JOptionPane.showMessageDialog(this.myView.getFrame(), "No file selected.");
+            }
+        }
     }
 
     public void deletePack(PackagePanelController packagePanelController) {

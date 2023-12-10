@@ -14,4 +14,8 @@ public class GUIMenuBar extends JMenuBar{
         file.add(writePackage);
         this.add(file);
     }
+
+    public JMenuItem getWritePackage() {
+        return writePackage;
+    }
 }

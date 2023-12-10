@@ -1,18 +1,12 @@
 package com.example.GraphVisual;
-
 import java.util.ArrayList;
-import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import com.example.GraphModel.UML_Model.Attribute;
 import com.example.GraphModel.UML_Model.Classes;
 import com.example.GraphModel.UML_Model.Method;
@@ -126,7 +120,9 @@ public class GUIClassPanel extends JPanel implements Nameable{
         return this.methodsPanel.nbRows++;
     }
 
-
+    public Classes refreshClass(){
+        return null;
+    }
 
     public void refreshContent() {
         this.attributesPanel.myModel = new DefaultTableModel(this.attributesPanel.columns.toArray(), 0);

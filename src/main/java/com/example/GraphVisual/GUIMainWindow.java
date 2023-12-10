@@ -7,6 +7,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -61,6 +62,10 @@ public class GUIMainWindow extends UniqPacketByName<GUIPackagePanel> implements 
         }
     }
 
+    public JMenuItem getWriteGraph(){
+        return this.myMenuBar.getWritePackage();
+    }
+
     public void refreshSizeOnPanel(JPanel containerPanel, JPanel contentPanel, double varx, double vary){
         Dimension d = containerPanel.getBounds().getSize();
         contentPanel.setPreferredSize(new Dimension((int) Math.round(d.getWidth()*varx),(int) Math.round(d.getHeight()*vary)));
@@ -82,7 +87,7 @@ public class GUIMainWindow extends UniqPacketByName<GUIPackagePanel> implements 
     }
 
     public GUIPackagePanel addPackages(PackageClass somePackage){
-        GUIPackagePanel newGuiPackagePanel = new GUIPackagePanel(somePackage.getName());
+        GUIPackagePanel newGuiPackagePanel = new GUIPackagePanel(somePackage.getName(), somePackage);
         
         try {
             this.addValueByName(newGuiPackagePanel);

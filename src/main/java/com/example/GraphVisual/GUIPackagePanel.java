@@ -10,17 +10,19 @@ import javax.swing.JPopupMenu;
 import com.example.GraphModel.UML_Model.AlreadyExistingStringException;
 import com.example.GraphModel.UML_Model.Classes;
 import com.example.GraphModel.UML_Model.Nameable;
+import com.example.GraphModel.UML_Model.PackageClass;
 import com.example.GraphModel.UML_Model.UniqPacketByName;
 
 public class GUIPackagePanel extends JPanel implements Nameable {
     JPopupMenu rightClickPackageMenu;
     JLabel name;
     UniqPacketByName<GUIClassPanel> myClasses;
-    
-    public GUIPackagePanel(String _name){
+    PackageClass myPackage;
+    public GUIPackagePanel(String _name, PackageClass somePackage){
         this.name = new JLabel(_name);
         this.myClasses = new UniqPacketByName<GUIClassPanel>();
         this.add(name);
+        this.myPackage = somePackage;
     }
 
     public String getName(){
