@@ -1,0 +1,53 @@
+this is a model of java uml graphs (or at least representation because theres no link between classes) with GUI create with MVC method.
+
+GraphModel contains the Model part,
+    which is divided into two parts: the file writing/retrieval and the proper model with classes, methods, attributes...
+GraphController the Controller part,
+GraphVisual the View part.
+
+the test folder contains the test for Model only
+
+The current version allows the user to: create package, create classes (java classes), load pre-existing classes (with some conditions on format), fill theses (java) classes with attributes, constructor and methods, write the project in a directory (and delete what you created)
+
+most of options are accessible on right click
+
+
+Here is the condition on format:
+
+this kind of attributes are currently managed: private/public/protected/nothing ANY_TYPE NameOfTheAttribute
+this kind of methods are currently managed: private/public/protected/nothing ANY_TYPE NameOfMethod() ; you can put arguments with Type Name, separated by ", ".
+when reading the file, the parse function accept this format: (the type and name can be what you want)
+
+public class ClassName {
+    public SomeTypeYouChoose attribute1;
+    private SomeOtherTypeYouChoose attribute2;
+    SomeTypeYouChoose attribute3;
+
+    public ClassName(SomeArguments Or Nothing){
+        ...
+    }
+
+    public MethodReturnType(){
+        ...
+    }
+}
+
+
+Beware of lines like this:
+int a; int b; int c;
+
+only 'int a' will be considered
+
+this.randomAttribute.doStuff( new MethodDefinition(){
+
+});
+^
+|
+this could make the program bug.
+
+Future steps of the project:
+-> manage "classA extends classB"
+-> manage Interfaces
+-> manage "classA implements Interface"
+-> manage class<GenericType>
+
