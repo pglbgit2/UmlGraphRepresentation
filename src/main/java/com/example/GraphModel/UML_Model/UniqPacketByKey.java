@@ -87,4 +87,11 @@ public class UniqPacketByKey<V> {
         }
         return str;
     }
+
+    public boolean hasValueWithKey(String name) {
+        if(!this.myHashMap.containsKey(name)){
+            return false;
+        }
+        return this.myHashMap.get(name) != null;
+    }
 }

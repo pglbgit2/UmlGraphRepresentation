@@ -24,7 +24,7 @@ public class GUIPopupGetNameArgs extends JDialog{
         this.inputArgsField = new JTextField(30);
         this.popupPanel = new JPanel();
         this.infoName = new JLabel("Input name, please:");
-        this.infoArgs = new JLabel("Input args, please: \nthese are the supported format: visibility type name, type name\n put as many as you want separate them with ', '");
+        this.infoArgs = new JLabel("Input args or nothing, please:");
         this.okButton = new JButton("OK");
 
         popupPanel.add(infoName);

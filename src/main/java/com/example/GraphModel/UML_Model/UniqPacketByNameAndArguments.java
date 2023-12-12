@@ -18,4 +18,9 @@ public class UniqPacketByNameAndArguments<V extends HaveArguments & Nameable> ex
     public String toString(){
         return super.toStringWithSeparator("\n", false);
     }
+
+
+    public boolean hasValueWithArgs(String[] args) {
+        return false;
+    }
 }

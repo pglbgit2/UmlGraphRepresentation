@@ -32,4 +32,8 @@ public class UniqPacketByName<V extends Nameable> extends UniqPacketByKey<V> {
         return super.deleteValueBykey(name);
     }
 
+    public boolean hasValueWithName(String name) {
+        return super.hasValueWithKey(name);
+    }
+
 }

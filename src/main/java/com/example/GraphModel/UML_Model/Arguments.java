@@ -51,4 +51,13 @@ public class Arguments {
         str+=this.argumentList.toStringWithSeparator(", ", false);
         return str;
     }
+
+
+    public boolean hasAttribute(Attribute a) {
+        return this.argumentList.hasValueWithName(a.getName());
+    }
+
+
+    
+    
 }

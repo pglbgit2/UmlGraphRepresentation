@@ -28,6 +28,7 @@ public class PackagePanelController implements ActionListener{
     PackageClass myPackageClass;
     JFrame myFrame;
     MainWindowController fatherPanel;
+    ArrayList<ClassPanelController> myClassesController;
 
     public PackagePanelController(GUIPackagePanel myPackageView, PackageClass myPackageModel, JFrame Frame, MainWindowController fatherPanel){
         this.myGuiPackagePanel = myPackageView;
@@ -39,6 +40,7 @@ public class PackagePanelController implements ActionListener{
         MainWindowController.linkWithMenuComponent(GUIRCPM.getDeletePackage(), "deletePackage", this);
         this.myFrame = Frame;
         this.fatherPanel = fatherPanel;
+        this.myClassesController = new ArrayList<ClassPanelController>();
     }
 
 
@@ -46,6 +48,7 @@ public class PackagePanelController implements ActionListener{
         myPackageClass.addValueByName(newClasse);
         GUIClassPanel newGUIClass = myGuiPackagePanel.addClasses(newClasse);
         ClassPanelController cpc = new ClassPanelController(newGUIClass, newClasse, this.myFrame, this);
+        this.myClassesController.add(cpc);
     }
 
     @Override
@@ -132,6 +135,14 @@ public class PackagePanelController implements ActionListener{
         this.myGuiPackagePanel.deleteClass(toDestroy);
         this.myFrame.revalidate();
         this.myFrame.repaint();
+        this.myClassesController.remove(classPanelController);
+    }
+
+
+    public void refreshModel() throws NoValidVisibilityException, AlreadyExistingStringException, NotGoodFormatException {
+        for(ClassPanelController cpc : this.myClassesController){
+            cpc.refreshModel();
+        }
     }
     
 }

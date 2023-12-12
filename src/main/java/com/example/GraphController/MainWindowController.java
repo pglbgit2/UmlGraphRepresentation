@@ -6,14 +6,17 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import com.example.GraphModel.GraphFileManager.NotGoodFormatException;
 import com.example.GraphModel.GraphFileManager.PackageDirWriter;
 import com.example.GraphModel.UML_Model.AlreadyExistingStringException;
+import com.example.GraphModel.UML_Model.NoValidVisibilityException;
 import com.example.GraphModel.UML_Model.PackageClass;
 import com.example.GraphModel.UML_Model.UmlGraph;
 import com.example.GraphVisual.GUIMainWindow;
@@ -23,12 +26,14 @@ import com.example.GraphVisual.GUIPopupGetName;
 public class MainWindowController implements ActionListener {
     UmlGraph myModel;
     GUIMainWindow myView;
+    ArrayList<PackagePanelController> myPackageControllers;
 
     public MainWindowController(UmlGraph someModel, GUIMainWindow someView){
         this.myModel = someModel;
         this.myView = someView;
         linkWithMenuComponent(this.myView.getMainPopup().getAddPackage(), "addPackage",this);
         linkWithMenuComponent(this.myView.getWriteGraph(), "writeGraph",this);
+        this.myPackageControllers = new ArrayList<PackagePanelController>();
     }
 
     public static void linkWithMenuComponent(JMenuItem someItem, String actionCommand, ActionListener someActionListener){
@@ -53,6 +58,7 @@ public class MainWindowController implements ActionListener {
                     myModel.addValueByName(newPackage);
                     GUIPackagePanel newGUIPackage = myView.addPackages(newPackage);
                     PackagePanelController ppc = new PackagePanelController(newGUIPackage, newPackage, this.myView.getFrame(), this);
+                    this.myPackageControllers.add(ppc);
                 } catch (AlreadyExistingStringException e) {
                     JOptionPane.showMessageDialog(null, "Error: package with name "+e.getWanted()+" already exists");
                 }
@@ -62,6 +68,19 @@ public class MainWindowController implements ActionListener {
             if(this.myModel.getPackets().size() == 0){
                 JOptionPane.showMessageDialog(this.myView.getFrame(), "No package to write.");
                 return;
+            }
+            
+            try {
+                this.refreshModel();
+            } catch (NoValidVisibilityException e) {
+                e.printStackTrace();
+                return;
+            } catch (AlreadyExistingStringException e) {
+                e.printStackTrace();
+                return;
+            } catch (NotGoodFormatException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setMultiSelectionEnabled(false);
@@ -98,6 +117,12 @@ public class MainWindowController implements ActionListener {
         }
     }
 
+    private void refreshModel() throws NoValidVisibilityException, AlreadyExistingStringException, NotGoodFormatException {
+        for(PackagePanelController ppc : this.myPackageControllers){
+            ppc.refreshModel();
+        }
+    }
+
     public void deletePack(PackagePanelController packagePanelController) {
 
         PackageClass toDestroy = packagePanelController.myPackageClass;
@@ -106,5 +131,6 @@ public class MainWindowController implements ActionListener {
         this.myView.getPackagesPanel().remove(toRemove);
         this.myView.getFrame().revalidate();
         this.myView.getFrame().repaint();
+        this.myPackageControllers.remove(packagePanelController);
     }
 }

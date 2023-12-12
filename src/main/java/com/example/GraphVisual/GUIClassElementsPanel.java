@@ -8,7 +8,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.GridLayout;
 
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class GUIClassElementsPanel extends JPanel {
