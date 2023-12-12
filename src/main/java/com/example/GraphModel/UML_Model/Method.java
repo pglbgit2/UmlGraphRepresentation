@@ -19,7 +19,7 @@ public class Method extends Typeable implements HaveArguments{
    }
 
    /**
-    * @information Do not use this method, use getMethodFromDefinition 
+    * @information Do not use constructor, use getMethodFromDefinition 
     * @param type
     * @param name
     * @param args
@@ -30,9 +30,8 @@ public class Method extends Typeable implements HaveArguments{
         this(null,type, name, args);
    }
 
-   // definition: ReturnType MethodName(Arguments) / public ReturnType MethodName(Arguments) / public static ReturnType MethodName(Arguments)
    /**
-    * 
+    * @definition ReturnType MethodName(Arguments) / public ReturnType MethodName(Arguments) / public static ReturnType MethodName(Arguments)
     * @param definition
     * @return
     * @throws NoValidVisibilityException

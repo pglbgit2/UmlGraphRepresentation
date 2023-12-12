@@ -20,7 +20,8 @@ public class Arguments {
         }
     }
 
-    public void addAttributeByType(Attribute a) throws AlreadyExistingStringException{
+
+    public void addAttributeByName(Attribute a) throws AlreadyExistingStringException{
         this.argumentList.addValueByKey(a, a.getName());
     }
 
@@ -32,8 +33,9 @@ public class Arguments {
 
     public void deleteAttribute(String name){
         this.argumentList.deleteValueBykey(name);
-    }    
+    } 
 
+    
     public ArrayList<Attribute> getArgs(){
         return this.argumentList.getPackets();
     }

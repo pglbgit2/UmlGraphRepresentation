@@ -23,7 +23,7 @@ public class Classes implements Nameable {
      */
     public void addAttribute(String definition) throws NoValidVisibilityException, AlreadyExistingStringException{
         Attribute toAdd = Attribute.getAttributeFromString(definition);
-        this.myAttributes.addAttributeByType(toAdd);
+        this.myAttributes.addAttributeByName(toAdd);
     }
 
     public void addMethod(String definition) throws NoValidVisibilityException, AlreadyExistingStringException{
@@ -52,14 +52,6 @@ public class Classes implements Nameable {
 
      public ArrayList<Method> getMethods(){
         return this.myMethods.getPackets();
-    }
-
-    public void modifyMethod(){
-        //TODO
-    }
-
-    public void modifyAttribute(){
-        //TODO
     }
 
 

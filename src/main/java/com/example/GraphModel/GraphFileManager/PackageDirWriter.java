@@ -21,6 +21,12 @@ public class PackageDirWriter {
         this.myPackage = p;
     }
 
+    /**
+     * @description create directory with name and path arguments as String
+     * @param dirName
+     * @param dirPath
+     * @throws IOException
+     */
     public static void dirCreator(String dirName, String dirPath) throws IOException{
         if(!dirPath.endsWith("/")){
             dirPath+="/";
@@ -31,6 +37,11 @@ public class PackageDirWriter {
         }
     }
 
+    /**
+     * @description create package directory and write all class in it
+     * @param dirPath
+     * @throws IOException
+     */
     public void writePackage(String dirPath) throws IOException{
         PackageDirWriter.dirCreator(this.myPackage.getName(), dirPath);
         for(Classes c : this.myPackage.getClasses()){

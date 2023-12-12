@@ -12,7 +12,7 @@ The current version allows the user to: create package, create classes (java cla
 most of options are accessible on right click
 
 
-Here is the condition on format:
+conditions on format:
 
 this kind of attributes are currently managed: private/public/protected/nothing ANY_TYPE NameOfTheAttribute
 this kind of methods are currently managed: private/public/protected/nothing ANY_TYPE NameOfMethod() ; you can put arguments with Type Name, separated by ", ".
@@ -46,6 +46,7 @@ this.randomAttribute.doStuff( new MethodDefinition(){
 this could make the program bug.
 
 Future steps of the project:
+-> manage static, transient
 -> manage "classA extends classB"
 -> manage Interfaces
 -> manage "classA implements Interface"

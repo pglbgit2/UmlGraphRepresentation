@@ -19,6 +19,11 @@ public class ClassFileRetriever {
 
     }
 
+    /**
+     * @example removeTroubleSomeSpaces("       toto      tata    titi") -> "toto tata titi"
+     * @param sentense
+     * @return
+     */
     public static String removeTroublesomeSpaces(String sentense){
         String str = new String(sentense);
         str =  str.replaceAll("^\\s+|\\s{2,}|\\s+$", "") ;
@@ -36,6 +41,7 @@ public class ClassFileRetriever {
      * @throws NotGoodFormatException
      * @throws AlreadyExistingStringException
      * @throws NoValidVisibilityException
+     * @example retrieveClass("/home/user/MyJavaProjects/someClass.java")
      */
     public Classes retrieveClass(String filepath) throws FileNotFoundException, IOException, NotGoodFormatException, NoValidVisibilityException, AlreadyExistingStringException{
         String[] pathElements = filepath.split("/");
@@ -111,7 +117,12 @@ public class ClassFileRetriever {
 
 
 
-
+    /**
+     * @BEWARE do not use this function outside of retrieveClass. Its purpose is to work in a special context, will not work otherwise
+     * @param newLine
+     * @param name
+     * @return
+     */
     private boolean isConstructor(String newLine, String name) {
         return newLine.startsWith("public "+name+"(");
     }

@@ -60,6 +60,7 @@ public class UniqPacketByKey<V> {
         return theValues;
     }
 
+    // null values will not be count 
     public int getSize(){
         ArrayList<V> theValues = new ArrayList<V>();
         for(String key : this.myHashMap.keySet()){
@@ -72,7 +73,7 @@ public class UniqPacketByKey<V> {
     }
 
     
-
+    // ["A","B","C"] -> toStringWithSeparator(", ",false) -> "A, B, C"
     public String toStringWithSeparator(String separator, boolean keepLastSeparator){
         String str = "";
         for(String key : this.myHashMap.keySet()){

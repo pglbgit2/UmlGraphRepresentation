@@ -16,13 +16,18 @@ public class ClassWriter {
         this.myClasse = someClasse;
     }
 
+    /**
+     * @Use this is used for testing with temporal files and to avoid code duplication with writeFile.
+     * @param theFile
+     * @throws FileNotFoundException
+     */
     public void writeFileWithFile(File theFile) throws FileNotFoundException{
         PrintWriter someWriter = new PrintWriter(theFile);
         someWriter.print(this.myClasse.toString());
         someWriter.close();
     }
     /**
-     * 
+     * write instance of Classes in file with given name 
      * @param filedirpath
      * @throws IOException
      */
