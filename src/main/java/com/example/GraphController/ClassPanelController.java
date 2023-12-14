@@ -100,7 +100,7 @@ public class ClassPanelController implements ActionListener{
         ArrayList<String> existingAttributes = new ArrayList<String>();
         DefaultTableModel someAttributeModel = this.myGuiClassPanel.getAttributeTableModel();
         this.myClass.resetAttributes();
-        for(int i = 0; i < someAttributeModel.getRowCount() ; i++){
+        for(int i = 0; i < this.myGuiClassPanel.getNbAttr() ; i++){
             String attr = (String)someAttributeModel.getValueAt(i, 0);
             if(attr != null){
                 try{
@@ -119,9 +119,9 @@ public class ClassPanelController implements ActionListener{
         DefaultTableModel someMethodModel = this.myGuiClassPanel.getMethodTableModel();
         ArrayList<Method> theMethods = this.myClass.getMethods();
         this.myClass.resetMethods();
-        for(int i = 0; i < someMethodModel.getRowCount() ; i++){
+        for(int i = 0; i < this.myGuiClassPanel.getNbMethod() ; i++){
              String methodLine = (String)someMethodModel.getValueAt(i, 0);
-             if(methodLine != null){
+             if(methodLine != null && methodLine.compareTo("") != 0){
                 try {
                     this.myClass.addMethod(methodLine);
                 } catch (AlreadyExistingStringException e) {
@@ -139,9 +139,9 @@ public class ClassPanelController implements ActionListener{
              }
         }
         DefaultTableModel someConstructorModel = this.myGuiClassPanel.getConstructorTableModel();
-        for(int i = 0; i < someConstructorModel.getRowCount() ; i++){
+        for(int i = 0; i < this.myGuiClassPanel.getNbConstructor() ; i++){
                 String constructorLine = (String)someConstructorModel.getValueAt(i, 0);
-                if(constructorLine != null){
+                if(constructorLine != null && constructorLine.compareTo("") != 0){
                     if(constructorLine.contains("\\(") && constructorLine.contains("\\)")){
                         String argString = constructorLine.substring(constructorLine.indexOf("(") + 1, constructorLine.indexOf(")"));
                         String[] args = argString.split(", ");
@@ -153,7 +153,7 @@ public class ClassPanelController implements ActionListener{
                                 Method m1 = new Method("public",null, this.myClass.getName(), args);
                                 for(Method m2 : theMethods){
                                     if(m1.compareTo(m2)){
-                                        JOptionPane.showMessageDialog(this.myFrame, "You have two methods with same args and same name");   
+                                        JOptionPane.showMessageDialog(this.myFrame, "You have two constructor with same args and same name");   
                                     }
                                 }
                             }

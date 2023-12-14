@@ -113,9 +113,18 @@ public class GUIClassPanel extends JPanel implements Nameable{
         this.className.setText(_name);
     }
 
+    public int getNbAttr(){
+        return this.attributesPanel.nbRows;
+    }
+
     public int incAttNb() {
         return this.attributesPanel.nbRows++;
     }
+
+    public int getNbMethod(){
+        return this.methodsPanel.nbRows;
+    }
+
     public int incMethodNb(){
         return this.methodsPanel.nbRows++;
     }
@@ -149,6 +158,10 @@ public class GUIClassPanel extends JPanel implements Nameable{
         this.methodsPanel.refresh();
         this.constructorPanel.refresh();
 
+    }
+
+    public int getNbConstructor(){
+        return this.constructorPanel.nbRows;
     }
 
     public int incConsNb() {

@@ -31,7 +31,9 @@ public class Classes implements Nameable {
 
     public void addMethod(String definition) throws NoValidVisibilityException, AlreadyExistingStringException{
         Method toAdd = Method.getMethodFromDefinition(definition);
-        this.myMethods.addValue(toAdd);
+        if(toAdd != null){
+            this.myMethods.addValue(toAdd);
+       }
     }
     
     public boolean hasMethod(String name, String[] args) throws NotGoodFormatException {
@@ -44,7 +46,9 @@ public class Classes implements Nameable {
 
     public void addConstructor(String[] args) throws NoValidVisibilityException, AlreadyExistingStringException{
         Method constructor = new Method("public",null, this.name, args);
-        this.myMethods.addValue(constructor);
+        if(constructor != null){
+            this.myMethods.addValue(constructor);
+        }
     }
 
     public void removeAttribute(String name){
