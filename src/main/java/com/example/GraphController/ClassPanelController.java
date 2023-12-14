@@ -2,10 +2,14 @@ package com.example.GraphController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.channels.AlreadyBoundException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import org.w3c.dom.Attr;
 
 import com.example.GraphModel.GraphFileManager.NotGoodFormatException;
 import com.example.GraphModel.UML_Model.AlreadyExistingStringException;
@@ -13,6 +17,7 @@ import com.example.GraphModel.UML_Model.Attribute;
 import com.example.GraphModel.UML_Model.Classes;
 import com.example.GraphModel.UML_Model.Method;
 import com.example.GraphModel.UML_Model.NoValidVisibilityException;
+import com.example.GraphModel.UML_Model.UniqPacketByName;
 import com.example.GraphVisual.GUIClassPanel;
 import com.example.GraphVisual.GUIPopupDestroyObject;
 import com.example.GraphVisual.GUIRightClickClassMenu;
@@ -61,31 +66,25 @@ public class ClassPanelController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
-        if(arg0.getActionCommand().compareTo("addAttribute") == 0){
-            addAttrLine();
-            try {
+        try{
+            if(arg0.getActionCommand().compareTo("addAttribute") == 0){
+                addAttrLine();
                 refreshModel();
-            } catch (NoValidVisibilityException | AlreadyExistingStringException | NotGoodFormatException e) {
-              
+            }
+            if(arg0.getActionCommand().compareTo("addMethod") == 0){
+                addMethodLine();
+                refreshModel();
+            }
+            if(arg0.getActionCommand().compareTo("addConstructor") == 0){
+                addConstructorLine();
+                refreshModel();
             }
         }
-        if(arg0.getActionCommand().compareTo("addMethod") == 0){
-            addMethodLine();
-            try {
-                refreshModel();
-            } catch (NoValidVisibilityException | AlreadyExistingStringException | NotGoodFormatException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+        catch(NoValidVisibilityException e){
+            JOptionPane.showMessageDialog(this.myFrame, "Problem with visibility");   
         }
-        if(arg0.getActionCommand().compareTo("addConstructor") == 0){
-            addConstructorLine();
-            try {
-                refreshModel();
-            } catch (NoValidVisibilityException | AlreadyExistingStringException | NotGoodFormatException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+        catch(NotGoodFormatException e){
+            JOptionPane.showMessageDialog(this.myFrame, "Problem with format");   
         }
         if(arg0.getActionCommand().compareTo("deleteClass") == 0){
             GUIPopupDestroyObject newPopup = new GUIPopupDestroyObject(myFrame);
@@ -97,35 +96,72 @@ public class ClassPanelController implements ActionListener{
         }
     }
 
-    public void refreshModel() throws NoValidVisibilityException, AlreadyExistingStringException, NotGoodFormatException {
+    public void refreshModel() throws NoValidVisibilityException, NotGoodFormatException {
+        ArrayList<String> existingAttributes = new ArrayList<String>();
         DefaultTableModel someAttributeModel = this.myGuiClassPanel.getAttributeTableModel();
-        for(int i = 0; i < someAttributeModel.getRowCount()+1 ; i++){
-            Attribute newAttribute;
+        this.myClass.resetAttributes();
+        for(int i = 0; i < someAttributeModel.getRowCount() ; i++){
             String attr = (String)someAttributeModel.getValueAt(i, 0);
             if(attr != null){
-                newAttribute = Attribute.getAttributeFromString(attr);
-                if(!this.myClass.hasAttribute(newAttribute)){
-                    this.myClass.addAttribute(newAttribute);
-                    System.out.println("nouvel attribut:"+newAttribute.toString());
+                try{
+                    Attribute att = this.myClass.addAttribute(attr);
+                    existingAttributes.add(att.getName());
+                } catch(AlreadyExistingStringException aese){
+                    String[] splittedAttribute = attr.split(" ");
+                    String name = splittedAttribute[splittedAttribute.length-1];
+                    if(existingAttributes.contains(name)){
+                        JOptionPane.showMessageDialog(this.myFrame, "You have two attributes with same name: "+name+", please change it");
+                    }
                 }
             }  
         }
+
         DefaultTableModel someMethodModel = this.myGuiClassPanel.getMethodTableModel();
-        for(int i = 0; i < someMethodModel.getRowCount()+1 ; i++){
-            String meth = (String)someMethodModel.getValueAt(i, 0);
-            if(meth != null && !this.myClass.hasMethod(meth)){
-                this.myClass.addMethod(meth); 
-            }
-        } 
+        ArrayList<Method> theMethods = this.myClass.getMethods();
+        this.myClass.resetMethods();
+        for(int i = 0; i < someMethodModel.getRowCount() ; i++){
+             String methodLine = (String)someMethodModel.getValueAt(i, 0);
+             if(methodLine != null){
+                try {
+                    this.myClass.addMethod(methodLine);
+                } catch (AlreadyExistingStringException e) {
+                    try {
+                        Method m = Method.getMethodFromDefinition(methodLine);
+                        for(Method m2 : theMethods){
+                            if(m.compareTo(m2)){
+                                JOptionPane.showMessageDialog(this.myFrame, "You have two methods with same args and same name");   
+                            }
+                        }
+                    } catch (AlreadyExistingStringException e1) {
+                        JOptionPane.showMessageDialog(this.myFrame, "You have an error with the arguments of your method"+methodLine);
+                    }
+                }
+             }
+        }
         DefaultTableModel someConstructorModel = this.myGuiClassPanel.getConstructorTableModel();
-        for(int i = 0; i < someConstructorModel.getRowCount()+1 ; i++){
+        for(int i = 0; i < someConstructorModel.getRowCount() ; i++){
                 String constructorLine = (String)someConstructorModel.getValueAt(i, 0);
                 if(constructorLine != null){
-                    String argString = constructorLine.substring(constructorLine.indexOf("(") + 1, constructorLine.indexOf(")"));
-                    String[] args = argString.split(", ");
-                    if(!this.myClass.hasConstructor(args)){
-                        this.myClass.addConstructor(args);  
-                    }  
+                    if(constructorLine.contains("\\(") && constructorLine.contains("\\)")){
+                        String argString = constructorLine.substring(constructorLine.indexOf("(") + 1, constructorLine.indexOf(")"));
+                        String[] args = argString.split(", ");
+                        try{
+                            this.myClass.addConstructor(args);  
+                        }
+                        catch(AlreadyExistingStringException aese){
+                            try{
+                                Method m1 = new Method("public",null, this.myClass.getName(), args);
+                                for(Method m2 : theMethods){
+                                    if(m1.compareTo(m2)){
+                                        JOptionPane.showMessageDialog(this.myFrame, "You have two methods with same args and same name");   
+                                    }
+                                }
+                            }
+                            catch(AlreadyExistingStringException e){
+                                        JOptionPane.showMessageDialog(this.myFrame, "You have a constructor with two arguments that have the same name");   
+                            }
+                        }
+                    }
                 }
             } 
     }

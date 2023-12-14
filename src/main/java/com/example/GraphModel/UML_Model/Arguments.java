@@ -12,10 +12,12 @@ public class Arguments {
      */
     public Arguments(String[] attributeStringTab) throws NoValidVisibilityException, AlreadyExistingStringException{
         this.argumentList = new UniqPacketByName<Attribute>();
-        for(String attString : attributeStringTab){
-            Attribute newAtt = Attribute.getAttributeFromString(attString);
-            if(newAtt != null){
-                this.argumentList.addValueByName(newAtt);
+        if(attributeStringTab != null){
+            for(String attString : attributeStringTab){
+                Attribute newAtt = Attribute.getAttributeFromString(attString);
+                if(newAtt != null){
+                    this.argumentList.addValueByName(newAtt);
+                }
             }
         }
     }
@@ -55,6 +57,16 @@ public class Arguments {
 
     public boolean hasAttribute(Attribute a) {
         return this.argumentList.hasValueWithName(a.getName());
+    }
+
+
+    public boolean compareTo(Arguments arguments) {
+        for(Attribute att : arguments.getArgs()){
+            if(!this.argumentList.hasValueWithName(att.getName())){
+                return false;
+            }
+        }
+        return true;
     }
 
 

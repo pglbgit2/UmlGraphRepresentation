@@ -20,7 +20,7 @@ public class UniqPacketByNameAndArguments<V extends HaveArguments & Nameable> ex
     }
 
 
-    public boolean hasValueWithArgs(String[] args) {
+    public boolean hasValueWithArgsAndName(String name, String args[]) {
         return false;
     }
 }

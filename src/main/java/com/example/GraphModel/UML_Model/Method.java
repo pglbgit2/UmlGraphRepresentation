@@ -77,5 +77,12 @@ public class Method extends Typeable implements HaveArguments{
     public Arguments getArguments() {
         return this.arguments;
     }
+
+    public boolean compareTo(Method m2) {
+        if(m2.getName() != this.name){
+            return false;
+        }
+        return m2.getArguments().compareTo(this.getArguments());
+    }
     
 }

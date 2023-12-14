@@ -23,9 +23,10 @@ public class Classes implements Nameable {
      * @throws NoValidVisibilityException
      * @throws AlreadyExistingStringException
      */
-    public void addAttribute(String definition) throws NoValidVisibilityException, AlreadyExistingStringException{
+    public Attribute addAttribute(String definition) throws NoValidVisibilityException, AlreadyExistingStringException{
         Attribute toAdd = Attribute.getAttributeFromString(definition);
         this.myAttributes.addAttributeByName(toAdd);
+        return toAdd;
     }
 
     public void addMethod(String definition) throws NoValidVisibilityException, AlreadyExistingStringException{
@@ -33,17 +34,12 @@ public class Classes implements Nameable {
         this.myMethods.addValue(toAdd);
     }
     
-    public boolean hasMethod(String meth) throws NotGoodFormatException {
-        if(!meth.contains(" ") || ! meth.contains("\\(") || !meth.contains("\\)")){
-            throw new NotGoodFormatException("your method must be like this: private type methodname(arguments or nothing)", meth);
-        }
-        String method = meth.substring(0, meth.indexOf("(") );
-        String[] methodParts = method.split(" ");
-        return this.myMethods.hasValueWithKey(methodParts[methodParts.length-1]);
+    public boolean hasMethod(String name, String[] args) throws NotGoodFormatException {
+        return this.myMethods.hasValueWithArgsAndName(name, args);
     }
 
     public boolean hasConstructor(String[] args) {
-        return this.myMethods.hasValueWithArgs(args);
+        return this.myMethods.hasValueWithArgsAndName(this.name,args);
     }
 
     public void addConstructor(String[] args) throws NoValidVisibilityException, AlreadyExistingStringException{
@@ -72,6 +68,11 @@ public class Classes implements Nameable {
         return this.myAttributes.hasAttribute(a);
     }
 
+    public boolean hasMethod(String definition) throws NoValidVisibilityException, AlreadyExistingStringException{
+        Method m = Method.getMethodFromDefinition(definition);
+        return this.myMethods.hasValueWithArgsAndName(m.getName(), (String[]) m.getArguments().getArgs().toArray());
+    }
+
     public String toString(){
         return "public class "+this.getName()+"{\n\t"+this.myAttributes.toStringWithSeparator(";\n\t", true)+this.myMethods.toString()+"}";
     }
@@ -88,6 +89,18 @@ public class Classes implements Nameable {
 
     public void addAttribute(Attribute newAttribute) throws AlreadyExistingStringException {
         this.myAttributes.addAttributeByName(newAttribute);
+    }
+
+    public void resetAttributes() {
+        try {
+            this.myAttributes = new Arguments(null);
+        } catch (NoValidVisibilityException e) {
+        } catch (AlreadyExistingStringException e) {
+        }
+    }
+
+    public void resetMethods() {
+        this.myMethods = new UniqPacketByNameAndArguments<Method>();
     }
 
     
