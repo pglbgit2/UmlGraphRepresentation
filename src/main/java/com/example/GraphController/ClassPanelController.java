@@ -100,12 +100,13 @@ public class ClassPanelController implements ActionListener{
         ArrayList<String> existingAttributes = new ArrayList<String>();
         DefaultTableModel someAttributeModel = this.myGuiClassPanel.getAttributeTableModel();
         this.myClass.resetAttributes();
-        for(int i = 0; i < this.myGuiClassPanel.getNbAttr() ; i++){
+        for(int i = 0; i < this.myGuiClassPanel.getNbAttr(); i++){
             String attr = (String)someAttributeModel.getValueAt(i, 0);
             if(attr != null){
                 try{
                     Attribute att = this.myClass.addAttribute(attr);
                     existingAttributes.add(att.getName());
+                    System.out.println("att:"+att);
                 } catch(AlreadyExistingStringException aese){
                     String[] splittedAttribute = attr.split(" ");
                     String name = splittedAttribute[splittedAttribute.length-1];
@@ -119,11 +120,12 @@ public class ClassPanelController implements ActionListener{
         DefaultTableModel someMethodModel = this.myGuiClassPanel.getMethodTableModel();
         ArrayList<Method> theMethods = this.myClass.getMethods();
         this.myClass.resetMethods();
-        for(int i = 0; i < this.myGuiClassPanel.getNbMethod() ; i++){
+        for(int i = 0; i < this.myGuiClassPanel.getNbMethod(); i++){
              String methodLine = (String)someMethodModel.getValueAt(i, 0);
              if(methodLine != null && methodLine.compareTo("") != 0){
                 try {
                     this.myClass.addMethod(methodLine);
+                    System.out.println("meth:"+methodLine);
                 } catch (AlreadyExistingStringException e) {
                     try {
                         Method m = Method.getMethodFromDefinition(methodLine);
@@ -136,17 +138,18 @@ public class ClassPanelController implements ActionListener{
                         JOptionPane.showMessageDialog(this.myFrame, "You have an error with the arguments of your method"+methodLine);
                     }
                 }
-             }
+            }
         }
         DefaultTableModel someConstructorModel = this.myGuiClassPanel.getConstructorTableModel();
-        for(int i = 0; i < this.myGuiClassPanel.getNbConstructor() ; i++){
+        for(int i = 0; i < this.myGuiClassPanel.getNbConstructor(); i++){
                 String constructorLine = (String)someConstructorModel.getValueAt(i, 0);
                 if(constructorLine != null && constructorLine.compareTo("") != 0){
                     if(constructorLine.contains("\\(") && constructorLine.contains("\\)")){
                         String argString = constructorLine.substring(constructorLine.indexOf("(") + 1, constructorLine.indexOf(")"));
                         String[] args = argString.split(", ");
                         try{
-                            this.myClass.addConstructor(args);  
+                            this.myClass.addConstructor(args);
+                            System.out.println("constructor:"+constructorLine);
                         }
                         catch(AlreadyExistingStringException aese){
                             try{

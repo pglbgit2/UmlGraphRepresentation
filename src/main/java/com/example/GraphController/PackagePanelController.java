@@ -54,18 +54,10 @@ public class PackagePanelController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent arg0) {
         if(arg0.getActionCommand().compareTo("addClass") == 0){
-            ArrayList<String> values = askForNameAndArgsWithPopup();
+            ClassInfo values = askForNameAndArgsWithPopup();
             if(values != null){
-            String[] args = new String[values.size()-1];
-            int i = 0;
-            for(String val : values){
-                if(i != 0){
-                    args[i-1] = val;
-                }
-                i++;
-            }
                 try {
-                    Classes newClasse = new Classes(values.get(0), args);
+                    Classes newClasse = new Classes(values.getName(), values.getParent(),values.getArgs());
                     this.addClass(newClasse);
                     this.fatherPanel.myView.refreshSizeOnPackages();
                 } catch (AlreadyExistingStringException e) {
@@ -121,7 +113,7 @@ public class PackagePanelController implements ActionListener{
         
     }
 
-    private ArrayList<String> askForNameAndArgsWithPopup() {
+    private ClassInfo askForNameAndArgsWithPopup() {
         GUIPopupGetNameArgs newPopup = new GUIPopupGetNameArgs(myFrame);
         PopupArgsController newController = new PopupArgsController(newPopup);
         newPopup.setVisible(true);

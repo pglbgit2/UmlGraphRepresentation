@@ -1,6 +1,4 @@
 package com.example.GraphModel.UML_Model;
-//TODO: treat the extends
-
 import java.util.ArrayList;
 
 import com.example.GraphModel.GraphFileManager.NotGoodFormatException;
@@ -9,11 +7,18 @@ public class Classes implements Nameable {
     private Arguments myAttributes;
     private UniqPacketByNameAndArguments<Method> myMethods;
     private String name;
+    private String parentName;
 
     public Classes(String name, String[] attributes) throws NoValidVisibilityException, AlreadyExistingStringException{
         this.name = name;
         this.myMethods = new UniqPacketByNameAndArguments<Method>();
         this.myAttributes = new Arguments(attributes);
+        this.parentName = "";
+    }
+
+    public Classes(String name, String parentName, String[] attributes) throws NoValidVisibilityException, AlreadyExistingStringException{
+        this(name, attributes);
+        this.parentName = parentName;
     }
 
     /**
@@ -77,8 +82,15 @@ public class Classes implements Nameable {
         return this.myMethods.hasValueWithArgsAndName(m.getName(), (String[]) m.getArguments().getArgs().toArray());
     }
 
+    public String manageExtends(){
+        if(this.parentName.compareTo("") == 0){
+            return "";
+        }
+        return " extends "+parentName;
+    }
+
     public String toString(){
-        return "public class "+this.getName()+"{\n\t"+this.myAttributes.toStringWithSeparator(";\n\t", true)+this.myMethods.toString()+"}";
+        return "public class "+this.getName()+manageExtends()+"{\n\t"+this.myAttributes.toStringWithSeparator(";\n\t", true)+this.myMethods.toString()+"}";
     }
 
     @Override

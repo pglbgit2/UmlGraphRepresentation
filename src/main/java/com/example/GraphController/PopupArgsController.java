@@ -11,32 +11,23 @@ public class PopupArgsController implements ActionListener{
     GUIPopupGetNameArgs myPopup;
     String name;
     String args;
+    String parent;
     public PopupArgsController(GUIPopupGetNameArgs newPopup) {
         this.myPopup = newPopup;
         this.myPopup.getOkButton().addActionListener(this);
     }
 
-    public ArrayList<String> getValue() {
+    public ClassInfo getValue() {
         this.name = this.myPopup.getNameField().getText();
         if(name == null || name.compareTo("") == 0){
            return null;
         }
         this.args = this.myPopup.getArgsField().getText();
-       ArrayList<String> nameArgs = new ArrayList<String>();
-        nameArgs.add(name);
-        if(args.contains(", ")){
-            String[] argsTab = args.split(", ");     
-           for(String arg : argsTab){
-                nameArgs.add(arg);
-           }
+        String[] argsTab = new String[]{};
+        if(args.compareTo("") != 0 && args.contains(", ")){
+            argsTab = args.split(", ");
         }
-        else{
-            if(args != null && args.compareTo("") != 0){
-                nameArgs.add(args);
-            }
-        }
-        
-       return nameArgs;
+       return new ClassInfo(name, parent, argsTab);
     }
 
 
@@ -44,6 +35,7 @@ public class PopupArgsController implements ActionListener{
     public void actionPerformed(ActionEvent arg0) { 
         name = this.myPopup.getNameField().getText();
         args = this.myPopup.getArgsField().getText();
+        parent = this.myPopup.getParentField().getText();
         this.myPopup.dispose();
     }
 }

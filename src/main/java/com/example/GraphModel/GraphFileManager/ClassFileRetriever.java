@@ -72,7 +72,20 @@ public class ClassFileRetriever {
                                     theFile.close();
                                     throw new NotGoodFormatException(filename, supposedClassName);
                                 }
-                                newClasse = new Classes(filename, new String[]{});
+                                if(newLine.contains(" extends ")){
+                                    String[] splittedClassDefinition = newLine.split(" extends ");
+                                    String parentName = splittedClassDefinition[1];
+                                    if(parentName.contains(" ")){
+                                        parentName = parentName.split(" ")[0];
+                                    }
+                                    if(parentName.endsWith("{")){
+                                        parentName = parentName.substring(0, parentName.length()-1);
+                                    }
+                                    newClasse = new Classes(filename, parentName, new String[]{});
+                                }
+                                else{
+                                    newClasse = new Classes(filename, new String[]{});
+                                }
                                 //System.out.println("class def:"+newLine);
                                 hasPassedClassDefinition = true;
                             }

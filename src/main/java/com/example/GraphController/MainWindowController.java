@@ -79,8 +79,8 @@ public class MainWindowController implements ActionListener {
                 e.printStackTrace();
                 return;
             } catch (NotGoodFormatException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
+                return;
             }
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setMultiSelectionEnabled(false);

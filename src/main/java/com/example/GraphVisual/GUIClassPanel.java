@@ -34,8 +34,6 @@ public class GUIClassPanel extends JPanel implements Nameable{
 
         ArrayList<String> attributesNames = new ArrayList<String>();
         attributesNames.add("Attribute ");
-        attributesNames.add("HasGetter");
-        attributesNames.add("HasSetter");
         this.attributesPanel = new GUIClassElementsPanel("Attribute", attributesNames);
         this.contentPanel.add(this.attributesPanel);
 

@@ -17,20 +17,26 @@ public class GUIPopupGetNameArgs extends JDialog{
     JTextField inputArgsField;
     JPanel popupPanel;
     JButton okButton;
-    
+    private JLabel infoParent;
+    JTextField inputParentField;
+
     public GUIPopupGetNameArgs( JFrame _frame){
         super(_frame,"Name and Arguments",true);
         this.inputNameField = new JTextField(30);
         this.inputArgsField = new JTextField(30);
+        this.inputParentField = new JTextField(30);
         this.popupPanel = new JPanel();
         this.infoName = new JLabel("Input name, please:");
         this.infoArgs = new JLabel("Input args or nothing, please:");
+        this.infoParent = new JLabel("Input parent class name or nothing, please:");
         this.okButton = new JButton("OK");
 
         popupPanel.add(infoName);
         popupPanel.add(inputNameField);
         popupPanel.add(infoArgs);
         popupPanel.add(inputArgsField);
+        popupPanel.add(infoParent);
+        popupPanel.add(inputParentField);
         popupPanel.add(okButton);
 
         this.add(popupPanel);
@@ -42,12 +48,14 @@ public class GUIPopupGetNameArgs extends JDialog{
         return this.okButton;
     }
 
-
     public JTextField getNameField(){
         return this.inputNameField;
     }
     public JTextField getArgsField(){
         return this.inputArgsField;
+    }
+    public JTextField getParentField(){
+        return this.inputParentField;
     }
 
 }

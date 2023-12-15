@@ -32,6 +32,10 @@ public class ClassName {
     }
 }
 
+it also accept 
+public class Class2 extends Class1 {
+    ...
+}
 
 Beware of lines like this:
 int a; int b; int c;
@@ -47,7 +51,6 @@ this could make the program bug.
 
 Future steps of the project:
 -> manage static, transient
--> manage "classA extends classB"
 -> manage Interfaces
 -> manage "classA implements Interface"
 -> manage class<GenericType>
