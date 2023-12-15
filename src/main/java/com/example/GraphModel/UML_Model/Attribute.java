@@ -36,6 +36,12 @@ public class Attribute extends Typeable{
                 throw new NoValidVisibilityException(attString);
             }
             newAtt = new Attribute(att[n-1], att[n-2], att[0]);
+            if(attString.contains(" static ")){
+                newAtt.setStatic(true);
+            }
+            if(attString.contains(" transient ")){
+                newAtt.setTransient(true);
+            }
         }
         else if(n == 2){
             newAtt = new Attribute(att[1], att[0]);

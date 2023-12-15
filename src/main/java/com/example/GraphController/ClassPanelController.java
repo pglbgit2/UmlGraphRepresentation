@@ -51,17 +51,14 @@ public class ClassPanelController implements ActionListener{
 
     public void addAttrLine(){
         this.myGuiClassPanel.getAttributesPanel().addLine();
-        this.myGuiClassPanel.incAttNb();
     }
 
     public void addMethodLine(){
         this.myGuiClassPanel.getMethodsPanel().addLine();
-        this.myGuiClassPanel.incMethodNb();
     }
 
     public void addConstructorLine(){
         this.myGuiClassPanel.getConstructorPanel().addLine();
-        this.myGuiClassPanel.incConsNb();
     }
 
     @Override
@@ -106,7 +103,7 @@ public class ClassPanelController implements ActionListener{
                 try{
                     Attribute att = this.myClass.addAttribute(attr);
                     existingAttributes.add(att.getName());
-                    System.out.println("att:"+att);
+                    //System.out.println("att:"+att);
                 } catch(AlreadyExistingStringException aese){
                     String[] splittedAttribute = attr.split(" ");
                     String name = splittedAttribute[splittedAttribute.length-1];
@@ -125,7 +122,7 @@ public class ClassPanelController implements ActionListener{
              if(methodLine != null && methodLine.compareTo("") != 0){
                 try {
                     this.myClass.addMethod(methodLine);
-                    System.out.println("meth:"+methodLine);
+                    //System.out.println("meth:"+methodLine);
                 } catch (AlreadyExistingStringException e) {
                     try {
                         Method m = Method.getMethodFromDefinition(methodLine);
@@ -149,7 +146,7 @@ public class ClassPanelController implements ActionListener{
                         String[] args = argString.split(", ");
                         try{
                             this.myClass.addConstructor(args);
-                            System.out.println("constructor:"+constructorLine);
+                            //System.out.println("constructor:"+constructorLine);
                         }
                         catch(AlreadyExistingStringException aese){
                             try{

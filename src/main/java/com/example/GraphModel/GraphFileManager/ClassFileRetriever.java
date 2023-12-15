@@ -10,7 +10,7 @@ import com.example.GraphModel.UML_Model.Classes;
 import com.example.GraphModel.UML_Model.NoValidVisibilityException;
 /**
  * @author: Pierre-Gilles Le Botlan
- * Objective: Transform text file into Classe instance
+ * Objective: Transform text file into Classes instance
  */
 public class ClassFileRetriever {
 

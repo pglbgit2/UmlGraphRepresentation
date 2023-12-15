@@ -49,6 +49,7 @@ public class GUIClassElementsPanel extends JPanel {
 
     public void addLine(){
         this.myModel.addRow(new Object[this.myModel.getColumnCount()]);
+        this.nbRows +=1;
     }
 
 
